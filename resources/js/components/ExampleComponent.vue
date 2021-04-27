@@ -16,8 +16,5 @@
 
 <script>
     export default {
-        mounted() {
-            alert("Composant chargé");
-        }
     }
 </script>
