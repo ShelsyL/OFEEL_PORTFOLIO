@@ -21,7 +21,7 @@
 
 {{-- Début APP --}}
 <div id="app">
-  <works></works>
+  <router-view></router-view>
 
 {{-- Début Zone Dynamique --}}
 

@@ -3,7 +3,7 @@
   <section>
       <div class="section-inner">
 
-        <!-- TITRE ET NAVIGUATION DE LA SECTION -->
+        <!-- TITRE ET NAVIGATION DE LA SECTION -->
           <div class="container">
               <div class="row">
                   <div class="col-md-6 mb100 wow">
@@ -34,7 +34,7 @@
                                   <div class="vertical-center smoothie">
                                       <h3 class="smoothie mb30"><a href="single-portfolio-fullscreen.html" title="view project">Fullscreen Gallery</a></h3>
                                       <a :href="'assets/img/portfolio/' + work.image" title="View Gallery" class="btn btn-primary lb-link smoothie">Zoom</a>
-                                      <a href="single-portfolio-fullscreen.html" class="smoothie btn btn-primary">View</a>
+                                      <router-link class="smoothie btn btn-primary" :to="{name: 'works.show', params: { id: work.id}}">View</router-link>
                                   </div>
                               </div>
                           </div>
