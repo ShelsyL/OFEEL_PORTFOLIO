@@ -14,7 +14,8 @@
 
   {{-- Element racine sur lequel on va coller notre instance de vue --}}
   <div id="app">
-    <example-component></example-component>
+    {{-- <example-component></example-component> --}}
+
   </div>
 
   {{-- Chargement du script qui se trouve dans les assets(dossier public) --}}
