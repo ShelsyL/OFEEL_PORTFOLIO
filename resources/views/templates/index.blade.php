@@ -13,14 +13,16 @@
 
 @include('templates.partials._nav')
 
+{{-- Début APP --}}
+<div id="app">
+
 {{-- Template de la page Home --}}
-@include('templates.partials._headerHome')
+{{-- @include('templates.partials._headerHome') --}}
 
 {{-- Template des Pages --}}
 {{-- @include('templates.partials._headerPage') --}}
 
-{{-- Début APP --}}
-<div id="app">
+
   <router-view></router-view>
 
 {{-- Début Zone Dynamique --}}
@@ -42,15 +44,15 @@
 {{-- Fin de Zone Dynamique --}}
 
 
-@include('templates.partials._sectionAndFooter')
+{{-- @include('templates.partials._sectionAndFooter') --}}
+<footer-component></footer-component>
+
 
     </div>
   </div>
   {{-- FIN APP --}}
 
 @include('templates.partials._bandeDroite')
-
-
 
 @include('templates.partials._scripts')
 

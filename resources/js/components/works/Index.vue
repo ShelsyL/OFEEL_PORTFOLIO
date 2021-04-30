@@ -1,8 +1,11 @@
 <template>
+<div class="">
 
+  <!-- Page Header Home -->
+  <header-home></header-home>
+  
   <section>
       <div class="section-inner">
-
         <!-- TITRE ET NAVIGATION DE LA SECTION -->
           <div class="container">
               <div class="row">
@@ -42,10 +45,9 @@
                   </ul>
               </div>
           </div>
-
       </div>
   </section>
-
+</div>
 </template>
 
 <script>
