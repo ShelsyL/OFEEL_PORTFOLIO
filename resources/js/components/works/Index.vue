@@ -3,7 +3,7 @@
 
   <!-- Page Header Home -->
   <header-home></header-home>
-  
+
   <section>
       <div class="section-inner">
         <!-- TITRE ET NAVIGATION DE LA SECTION -->
@@ -11,7 +11,7 @@
               <div class="row">
                   <div class="col-md-6 mb100 wow">
                       <h2 class="section-heading">Recent Works</h2>
-                      <h3 class="section-subheading secondary-font">A small taste of our success.</h3>
+                      <h3 class="section-subheading secondary-font">Liste des works de {{ prenom }}</h3>
                   </div>
                   <div class="col-md-6 text-right">
                       <ul class="portfolio-filter mb30 list-inline wow">
@@ -55,6 +55,11 @@
       data () {
         return {
           works: []
+        }
+      },
+      computed: {
+        prenom () {
+          return this.$store.getters.getPrenom
         }
       },
       created () {
