@@ -13,16 +13,15 @@
       <div class="container">
         <div class="row project-item">
           <div class="col-sm-3">
-            <p>Behind sooner dining so window excuse he summer. Breakfast met certainty and fulfilled propriety led.
-              Waited get either are wooded little her. Contrasted unreserved as mr particular collecting it everything as indulgence.
-              Seems ask meant merry could put. Age old begin had boy noisy table front whole given.
+            <h2>{{ work.title }}</h2>
+            <p>{{ work.description }}
             </p>
           </div>
             <div class="col-sm-9 mb60 wow">
               <div class="row">
                 <div class="col-xs-12 single-post-content">
                   <div class="hover-item gap">
-                    <img :src="'assets/img/portfolio/portfolio2.jpg'" class="img-responsive " alt="title">
+                    <img :src="'assets/img/portfolio/' + work.image" class="img-responsive " alt="title">
                   </div>
                   <!-- <div class="hover-item gap">
                     <img :src="'assets/img/portfolio/portfolio4.jpg'" class="img-responsive " alt="title">
@@ -45,8 +44,13 @@
     export default {
       data () {
         return {
-
+          }
+        },
+        computed: {
+          work () {
+            let id = this.$route.params.id;
+            return this.$store.getters.getWorkById(id);
+          }
         }
-      }
     }
 </script>

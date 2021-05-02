@@ -2142,10 +2142,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {};
+  },
+  computed: {
+    work: function work() {
+      var id = this.$route.params.id;
+      return this.$store.getters.getWorkById(id);
+    }
   }
 });
 
@@ -2324,9 +2329,17 @@ __webpack_require__.r(__webpack_exports__);
 // ./resources/js/store/getters.js
 var getters = {
   // WORKS
-  //  All WORKS
+  // All WORKS
   getWorks: function getWorks(state) {
     return state.works;
+  },
+  // workById
+  getWorkById: function getWorkById(state) {
+    return function (id) {
+      return state.works.find(function (work) {
+        return work.id == id;
+      });
+    };
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getters);
@@ -38835,7 +38848,13 @@ var render = function() {
         _c("div", { staticClass: "section-inner" }, [
           _c("div", { staticClass: "container" }, [
             _c("div", { staticClass: "row project-item" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "col-sm-3" }, [
+                _c("h2", [_vm._v(_vm._s(_vm.work.title))]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(_vm._s(_vm.work.description) + "\n            ")
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-9 mb60 wow" }, [
                 _c("div", { staticClass: "row" }, [
@@ -38844,7 +38863,7 @@ var render = function() {
                       _c("img", {
                         staticClass: "img-responsive ",
                         attrs: {
-                          src: "assets/img/portfolio/portfolio2.jpg",
+                          src: "assets/img/portfolio/" + _vm.work.image,
                           alt: "title"
                         }
                       })
@@ -38860,20 +38879,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-3" }, [
-      _c("p", [
-        _vm._v(
-          "Behind sooner dining so window excuse he summer. Breakfast met certainty and fulfilled propriety led.\n              Waited get either are wooded little her. Contrasted unreserved as mr particular collecting it everything as indulgence.\n              Seems ask meant merry could put. Age old begin had boy noisy table front whole given.\n            "
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
