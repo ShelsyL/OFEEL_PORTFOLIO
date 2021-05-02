@@ -30,10 +30,13 @@ Vue.component('footer-component', require('./components/FooterComponent.vue').de
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import store from './store/index.js' // j'importe le store et je choisi l'endroit ou on va le mettre
+import store from './store/index.js' // j'importe le store
 import router from './router.js'
 
 const app = new Vue({
     el: '#app',
-    router, store // Je lui dis que j'utilise le store dans mon instance de vue
+    router, store, // Je lui dis que j'utilise le store dans mon instance de vue
+    created () {
+      this.$store.dispatch('setWorks');
+    }
 });

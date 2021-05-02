@@ -2078,22 +2078,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
-      works: []
-    };
+    return {};
   },
   computed: {
-    prenom: function prenom() {
-      return this.$store.getters.getPrenom;
+    works: function works() {
+      return this.$store.getters.getWorks;
     }
-  },
-  created: function created() {
-    var _this = this;
-
-    axios.get('api/works') // Route que l'on veut utilisé (api/works)
-    .then(function (reponsePHP) {
-      return _this.works = reponsePHP.data;
-    }); // Réponse php | On fait que this.works sera égal à reponsePHP.data | On rcupère le tableau Json qui va etre envoyé par l'api
   }
 });
 
@@ -2199,14 +2189,17 @@ Vue.component('footer-component', __webpack_require__(/*! ./components/FooterCom
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- // j'importe le store et je choisi l'endroit ou on va le mettre
+ // j'importe le store
 
 
 var app = new Vue({
   el: '#app',
   router: _router_js__WEBPACK_IMPORTED_MODULE_1__.default,
-  store: _store_index_js__WEBPACK_IMPORTED_MODULE_0__.default // Je lui dis que j'utilise le store dans mon instance de vue
-
+  store: _store_index_js__WEBPACK_IMPORTED_MODULE_0__.default,
+  // Je lui dis que j'utilise le store dans mon instance de vue
+  created: function created() {
+    this.$store.dispatch('setWorks');
+  }
 });
 
 /***/ }),
@@ -2292,6 +2285,54 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
 
 /***/ }),
 
+/***/ "./resources/js/store/actions.js":
+/*!***************************************!*\
+  !*** ./resources/js/store/actions.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// ./resources/js/store/actions.js
+var actions = {
+  setWorks: function setWorks(_ref) {
+    var commit = _ref.commit;
+    // TRANSACTION AJAX pour lancer le SETTER
+    axios.get('api/works').then(function (reponsePHP) {
+      return commit('SET_WORKS', reponsePHP.data);
+    });
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actions);
+
+/***/ }),
+
+/***/ "./resources/js/store/getters.js":
+/*!***************************************!*\
+  !*** ./resources/js/store/getters.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// ./resources/js/store/getters.js
+var getters = {
+  // WORKS
+  //  All WORKS
+  getWorks: function getWorks(state) {
+    return state.works;
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getters);
+
+/***/ }),
+
 /***/ "./resources/js/store/index.js":
 /*!*************************************!*\
   !*** ./resources/js/store/index.js ***!
@@ -2303,23 +2344,67 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-// ./src/js/store/index.js
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state.js */ "./resources/js/store/state.js");
+/* harmony import */ var _getters_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters.js */ "./resources/js/store/getters.js");
+/* harmony import */ var _mutations_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mutations.js */ "./resources/js/store/mutations.js");
+/* harmony import */ var _actions_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions.js */ "./resources/js/store/actions.js");
+// ./resources/js/store/index.js
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vuex__WEBPACK_IMPORTED_MODULE_1__.default);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_1__.default.Store({
-  state: {
-    // PROPRIETES
-    prenom: 'Chelsea'
-  },
-  getters: {
-    getPrenom: function getPrenom(state) {
-      return state.prenom;
-    }
-  }
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_4__.default.use(vuex__WEBPACK_IMPORTED_MODULE_5__.default);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_5__.default.Store({
+  // Chargements des modules
+  state: _state_js__WEBPACK_IMPORTED_MODULE_0__.default,
+  getters: _getters_js__WEBPACK_IMPORTED_MODULE_1__.default,
+  mutations: _mutations_js__WEBPACK_IMPORTED_MODULE_2__.default,
+  actions: _actions_js__WEBPACK_IMPORTED_MODULE_3__.default
 }));
+
+/***/ }),
+
+/***/ "./resources/js/store/mutations.js":
+/*!*****************************************!*\
+  !*** ./resources/js/store/mutations.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// ./resources/js/store/mutations.js
+var mutations = {
+  SET_WORKS: function SET_WORKS(state, data) {
+    state.works = data;
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mutations);
+
+/***/ }),
+
+/***/ "./resources/js/store/state.js":
+/*!*************************************!*\
+  !*** ./resources/js/store/state.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// ./resources/js/store/state.js
+var state = {
+  works: []
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (state);
 
 /***/ }),
 
@@ -38534,21 +38619,7 @@ var render = function() {
       _vm._v(" "),
       _c("section", [
         _c("div", { staticClass: "section-inner" }, [
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-6 mb100 wow" }, [
-                _c("h2", { staticClass: "section-heading" }, [
-                  _vm._v("Recent Works")
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "section-subheading secondary-font" }, [
-                  _vm._v("Liste des works de " + _vm._s(_vm.prenom))
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
-            ])
-          ]),
+          _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "container" }, [
             _c("div", { staticClass: "col-md-12" }, [
@@ -38641,61 +38712,75 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6 text-right" }, [
-      _c("ul", { staticClass: "portfolio-filter mb30 list-inline wow" }, [
-        _c("li", [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary active",
-              attrs: { href: "#", "data-filter": "*" }
-            },
-            [_vm._v("All")]
-          )
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 mb100 wow" }, [
+          _c("h2", { staticClass: "section-heading" }, [
+            _vm._v("Recent Works")
+          ]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "section-subheading secondary-font" }, [
+            _vm._v("Liste des works de Chelsea")
+          ])
         ]),
         _vm._v(" "),
-        _c("li", [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { href: "#", "data-filter": ".apps" }
-            },
-            [_vm._v("Apps")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { href: "#", "data-filter": ".design" }
-            },
-            [_vm._v("Design")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { href: "#", "data-filter": ".photography" }
-            },
-            [_vm._v("Photography")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { href: "#", "data-filter": ".video" }
-            },
-            [_vm._v("Video")]
-          )
+        _c("div", { staticClass: "col-md-6 text-right" }, [
+          _c("ul", { staticClass: "portfolio-filter mb30 list-inline wow" }, [
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary active",
+                  attrs: { href: "#", "data-filter": "*" }
+                },
+                [_vm._v("All")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: "#", "data-filter": ".apps" }
+                },
+                [_vm._v("Apps")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: "#", "data-filter": ".design" }
+                },
+                [_vm._v("Design")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: "#", "data-filter": ".photography" }
+                },
+                [_vm._v("Photography")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: "#", "data-filter": ".video" }
+                },
+                [_vm._v("Video")]
+              )
+            ])
+          ])
         ])
       ])
     ])

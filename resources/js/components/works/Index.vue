@@ -11,7 +11,7 @@
               <div class="row">
                   <div class="col-md-6 mb100 wow">
                       <h2 class="section-heading">Recent Works</h2>
-                      <h3 class="section-subheading secondary-font">Liste des works de {{ prenom }}</h3>
+                      <h3 class="section-subheading secondary-font">Liste des works de Chelsea</h3>
                   </div>
                   <div class="col-md-6 text-right">
                       <ul class="portfolio-filter mb30 list-inline wow">
@@ -53,18 +53,13 @@
 <script>
     export default {
       data () {
-        return {
-          works: []
-        }
+        return {}
       },
+
       computed: {
-        prenom () {
-          return this.$store.getters.getPrenom
+        works () {
+          return this.$store.getters.getWorks;
         }
-      },
-      created () {
-        axios.get('api/works') // Route que l'on veut utilisé (api/works)
-             .then(reponsePHP => (this.works = reponsePHP.data)) // Réponse php | On fait que this.works sera égal à reponsePHP.data | On rcupère le tableau Json qui va etre envoyé par l'api
       }
     }
 </script>
