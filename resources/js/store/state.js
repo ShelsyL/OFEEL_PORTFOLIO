@@ -1,8 +1,8 @@
 // ./resources/js/store/state.js
 
 let state = {
-
-    works: []
+    works: [],
+    categories: []
 }
 
-export default state
+export default state;

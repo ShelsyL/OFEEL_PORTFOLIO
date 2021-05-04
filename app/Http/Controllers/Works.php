@@ -8,6 +8,8 @@ use App\Models\Work;
 class Works extends Controller
 {
     public function index() {
-      return response()->json(Work::all());
+      // return response()->json(Work::all());
+      return response()->json(Work::with('categories')->get());
     }
+
 }

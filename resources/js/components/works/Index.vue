@@ -6,24 +6,13 @@
 
   <section>
       <div class="section-inner">
-        <!-- TITRE ET NAVIGATION DE LA SECTION -->
-          <div class="container">
-              <div class="row">
-                  <div class="col-md-6 mb100 wow">
-                      <h2 class="section-heading">Recent Works</h2>
-                      <h3 class="section-subheading secondary-font">Liste des works de Chelsea</h3>
-                  </div>
-                  <div class="col-md-6 text-right">
-                      <ul class="portfolio-filter mb30 list-inline wow">
-                          <li><a class="btn btn-primary active" href="#" data-filter="*">All</a></li>
-                          <li><a class="btn btn-primary" href="#" data-filter=".apps">Apps</a></li>
-                          <li><a class="btn btn-primary" href="#" data-filter=".design">Design</a></li>
-                          <li><a class="btn btn-primary" href="#" data-filter=".photography">Photography</a></li>
-                          <li><a class="btn btn-primary" href="#" data-filter=".video">Video</a></li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
+
+        <!-- CATEGORIES WORKS -->
+        <categories-menu></categories-menu>
+
+        <div class="container">
+         id =   {{this.$route.params.id}}
+        </div>
 
           <!-- LISTE DES WORKS -->
           <div class="container">
@@ -58,6 +47,12 @@
 
       computed: {
         works () {
+          let idCat = this.$route.params.id;
+          if(typeof idCat !== 'undefined' && idCat !== 1){
+            // console.log("Coucou");
+           return this.$store.getters.getWorksByCategorieId(idCat);
+          }
+
           return this.$store.getters.getWorks;
         }
       }

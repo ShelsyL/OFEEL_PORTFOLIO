@@ -29,4 +29,11 @@ class Work extends Model
     public function categories() {
       return $this->belongsToMany('App\Models\Categorie', 'works_has_categories');
     }
+
+    // /**
+    // * GETTER des categories du work
+    // */
+    // public function categories() {
+    //   return $this->belongsToMany('App\Models\Categorie', 'works_has_categories', 'work_id', 'categorie_id');
+    // }
 }

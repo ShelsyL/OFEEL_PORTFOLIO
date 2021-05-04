@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 use App\Http\Controllers\Works;
 Route::resource('works', Works::class, [
+  'except' => ['show', 'create', 'edit']
+]);
+
+use App\Http\Controllers\Categories;
+Route::resource('categories', Categories::class, [
   'except' => ['show', 'create', 'edit']
 ]);

@@ -8,6 +8,10 @@
 <div class="">
   <header-page></header-page>
 
+  <div class="section-inner">
+    Show.vue
+    {{ $route.params.id }}
+  </div>
   <section>
     <div class="section-inner">
       <div class="container">
@@ -45,10 +49,12 @@
       data () {
         return {
           }
-        },
+        }
+        ,
         computed: {
           work () {
             let id = this.$route.params.id;
+            // console.log(this);
             return this.$store.getters.getWorkById(id);
           }
         }

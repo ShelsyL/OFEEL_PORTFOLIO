@@ -8,6 +8,7 @@ import WorksShow  from './components/works/Show'
 
 // Création du routing
 Vue.use(Router)
+
 export default new Router({
   routes: [
     {
@@ -19,6 +20,11 @@ export default new Router({
       path: '/works/:id',
       name: 'works.show',
       component: WorksShow
+    },
+    {
+     path: '/works/categories/:id',
+     name: 'categories.show',
+     component: WorksIndex
     }
   ]
 })

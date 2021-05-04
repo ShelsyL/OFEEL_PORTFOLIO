@@ -23,6 +23,7 @@ window.Vue = require('vue').default;
 Vue.component('header-home', require('./components/HeaderHome.vue').default);
 Vue.component('header-page', require('./components/HeaderPage.vue').default);
 Vue.component('footer-component', require('./components/FooterComponent.vue').default);
+Vue.component('categories-menu', require('./components/categories/CategoriesMenu.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -35,8 +36,10 @@ import router from './router.js'
 
 const app = new Vue({
     el: '#app',
-    router, store, // Je lui dis que j'utilise le store dans mon instance de vue
+    router,
+    store, // Je lui dis que j'utilise le store dans mon instance de vue
     created () {
       this.$store.dispatch('setWorks');
+      this.$store.dispatch('setCategories');
     }
 });

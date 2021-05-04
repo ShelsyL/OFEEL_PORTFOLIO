@@ -4,7 +4,7 @@
       <section class="dark-wrapper">
           <div class="section-inner">
               <div class="container">
-                  <div class="row"> -->
+                  <div class="row"> 
 
                   <!-- GLOBAL COVERAGE  -->
                       <div class="col-md-4">

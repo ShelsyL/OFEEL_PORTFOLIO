@@ -15,13 +15,3 @@
     export default {
     }
 </script>
-
-
-<!-- Note : V-if pour afficher Home ou Page
-Si router link = index
-Code de header home
-
-Else
-Code de header Page
-
-c'est peut etre pas routeur-link??-->

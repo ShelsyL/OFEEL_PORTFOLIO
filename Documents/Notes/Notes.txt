@@ -8,7 +8,7 @@ Vidéo sur VUE CLI + VUE ROUTEUR + VUEX + LARAVEL API
 https://www.youtube.com/playlist?list=PLUjCePXct7MZ3qYl9sPthXLBZ1b_aBRQQ
 
 Github de mon protfolio:
-https://github.com/ShelsyL/OfeelPORTFOLIO
+https://github.com/ShelsyL/OFEEL_PORTFOLIO
 
 
 Grafikart
@@ -17,3 +17,5 @@ https://www.youtube.com/watch?v=g7YKecZhFRA&list=PLjwdMgw5TTLW-mAtlR46VajrKs4dep
 
 Vidéo pour démarrer avec Laravel 8
 https://www.youtube.com/playlist?list=PLUjCePXct7Mb-groiL4Vkr57qaGoWsnJ6
+
+TEST
