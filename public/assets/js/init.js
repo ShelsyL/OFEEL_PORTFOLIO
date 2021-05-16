@@ -1,6 +1,6 @@
 /* ==================================================
-//  ____  _     _   _            _   _          _____ _                              
-// |  _ \(_)___| |_(_)_ __   ___| |_(_)_   ____|_   _| |__   ___ _ __ ___   ___  ___ 
+//  ____  _     _   _            _   _          _____ _
+// |  _ \(_)___| |_(_)_ __   ___| |_(_)_   ____|_   _| |__   ___ _ __ ___   ___  ___
 // | | | | / __| __| | '_ \ / __| __| \ \ / / _ \| | | '_ \ / _ \ '_ ` _ \ / _ \/ __|
 // | |_| | \__ \ |_| | | | | (__| |_| |\ V /  __/| | | | | |  __/ | | | | |  __/\__ \
 // |____/|_|___/\__|_|_| |_|\___|\__|_| \_/ \___||_| |_| |_|\___|_| |_| |_|\___||___/
@@ -27,7 +27,7 @@ $(document).ready(function(){
       navigationText: [
       "<i class='pe-7s-angle-left'></i>",
       "<i class='pe-7s-angle-right'></i>"
-      ], 
+      ],
       autoPlay: 8000,
       loop: true
     });
@@ -62,7 +62,7 @@ $(document).ready(function(){
 
     //NEAT VID EMBEDS
     $().prettyEmbed({ useFitVids: true });
-    
+
     var magnificPopup = jQuery.magnificPopup.instance;
     jQuery('.lb-link, .image-gallery').magnificPopup({
       preloader:true,
@@ -82,7 +82,7 @@ $(document).ready(function(){
       $('html, body').animate({
         scrollTop: $("body").offset().top
       }, 500);
-    }); 
+    });
 
     $('.vertical-center').flexVerticalCenter({ cssAttribute: 'padding-top' });
 
@@ -110,6 +110,7 @@ $(document).ready(function(){
       return false;
     });
 
+ // Changement des mots HeaderHome
     $(".rotate").textrotator({
       animation: "dissolve",
       separator: ",",
@@ -127,18 +128,18 @@ $(document).ready(function(){
     $('#mapwrapper').css('height', mapHeight);
 
     $(document).on( 'shown.bs.tab', 'a[href="#contact2"]', function (e) {
-        $("#mapwrapper").gMap({ 
+        $("#mapwrapper").gMap({
             controls: false,
             scrollwheel: false,
-            markers: [{     
+            markers: [{
                 latitude:40.7566,
                 longitude: -73.9863,
             icon: { image: "assets/img/marker.png",
                 iconsize: [44,44],
                 iconanchor: [12,46],
                 infowindowanchor: [12, 0] } }],
-            icon: { 
-                image: "assets/img/marker.png", 
+            icon: {
+                image: "assets/img/marker.png",
                 iconsize: [26, 46],
                 iconanchor: [12, 46],
                 infowindowanchor: [12, 0] },
@@ -155,7 +156,7 @@ $(document).ready(function(){
     $(document).on( 'shown.bs.tab', 'a[href="#contact1"]', function (e) {
         if ($('#contact-tabs').hasClass('map-open')) {
           $('#contact-tabs').removeClass('map-open');
-        }        
+        }
     });
 
     //SIDE NAV MOBILE
@@ -194,13 +195,13 @@ $(document).ready(function(){
         $('#search-wrapper').addClass('open');
         $('#search-wrapper > form > input[type="search"]').focus();
     });
-    
+
     $('#search-wrapper, #search-wrapper button.close').on('click keyup', function(event) {
         if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
             $(this).removeClass('open');
         }
     });
-    
+
     $('form').submit(function(event) {
         event.preventDefault();
         return false;
@@ -224,7 +225,7 @@ $(document).ready(function(){
         direction: 'right',
         wrapper: '.master-wrapper',
         button: '.side-menu-trigger',
-        maxWidth: null  
+        maxWidth: null
     });
 
     $('.flexpanel').flexpanel({
@@ -232,7 +233,7 @@ $(document).ready(function(){
         direction: 'right',
         wrapper: '.master-wrapper',
         button: '.side-menu-only .navbar-toggle',
-        maxWidth: null  
+        maxWidth: null
     });
 
     $('a[href="#search"]').on('click', function(event) {
@@ -240,7 +241,7 @@ $(document).ready(function(){
       event.stopPropagation();
       $(this).closest('li').find('.dropdown-menu').toggleClass('open-me');
     });
-  
+
 
     $('.viewport-wrap').mCustomScrollbar({
       theme:"dark"
@@ -253,18 +254,18 @@ $(document).ready(function(){
       });
     }
 
-    $("#mapwrapper.alt-map").gMap({ 
+    $("#mapwrapper.alt-map").gMap({
         controls: false,
         scrollwheel: false,
-        markers: [{     
+        markers: [{
             latitude:40.7566,
             longitude: -73.9863,
         icon: { image: "assets/img/marker.png",
             iconsize: [44,44],
             iconanchor: [12,46],
             infowindowanchor: [12, 0] } }],
-        icon: { 
-            image: "assets/img/marker.png", 
+        icon: {
+            image: "assets/img/marker.png",
             iconsize: [26, 46],
             iconanchor: [12, 46],
             infowindowanchor: [12, 0] },

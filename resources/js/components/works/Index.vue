@@ -77,7 +77,7 @@ export default {
     },
 
     watch: {
-      // appeler encore la mÃ©thode si la route change
+      // appeler encore la méthode si la route change
       '$route': 'fetchData'
     },
 

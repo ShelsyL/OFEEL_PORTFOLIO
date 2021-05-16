@@ -1979,14 +1979,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({// data () {
-  //   seconds : 0
-  // },
-  // mounted: function () {
-  //   setInterval(() => {
-  //     this.seconds++
-  //   }, 1000)
-  // },
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mounted: function mounted() {
+    // Images du header qui tournent
+    $(document).ready(function () {
+      'use strict';
+
+      jQuery('#headerwrap').backstretch([// "assets/img/bg/douceur.jpg",
+      "assets/img/bg/bg1.jpg", "assets/img/bg/bg2.jpg", "assets/img/bg/bg3.jpg"], {
+        duration: 8000,
+        fade: 500
+      });
+    }); // Chargement des mots HeaderHome
+
+    $(document).ready(function () {
+      jQuery(".rotate").textrotator({
+        animation: "dissolve",
+        separator: ",",
+        speed: 2500 // How many milliseconds until the next word show.
+
+      });
+    });
+  }
 });
 
 /***/ }),
@@ -2162,7 +2176,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     console.log('destroyed');
   },
   watch: {
-    // appeler encore la mÃ©thode si la route change
+    // appeler encore la méthode si la route change
     '$route': 'fetchData'
   },
   methods: {
@@ -2318,8 +2332,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _store_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store/index.js */ "./resources/js/store/index.js");
-/* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router.js */ "./resources/js/router.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/index.js */ "./resources/js/store/index.js");
+/* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router.js */ "./resources/js/router.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -2328,6 +2344,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
+
+__webpack_require__.g.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -2354,8 +2372,8 @@ Vue.component('categories-menu', __webpack_require__(/*! ./components/categories
 
 var app = new Vue({
   el: '#app',
-  router: _router_js__WEBPACK_IMPORTED_MODULE_1__.default,
-  store: _store_index_js__WEBPACK_IMPORTED_MODULE_0__.default,
+  router: _router_js__WEBPACK_IMPORTED_MODULE_2__.default,
+  store: _store_index_js__WEBPACK_IMPORTED_MODULE_1__.default,
   // Je lui dis que j'utilise le store dans mon instance de vue
   created: function created() {
     this.$store.dispatch('setWorks');
@@ -38804,9 +38822,9 @@ var staticRenderFns = [
                   attrs: { "data-wow-delay": "0.4s" }
                 },
                 [
-                  _vm._v("We are here to help you "),
+                  _vm._v("Bienvenue dans  "),
                   _c("span", { staticClass: "rotate" }, [
-                    _vm._v("grow, profit, succeed")
+                    _vm._v("mes créations, mon monde, mon univers")
                   ])
                 ]
               ),
@@ -55788,6 +55806,18 @@ var index = {
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	
