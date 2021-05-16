@@ -8,10 +8,6 @@
 <div class="">
   <header-page></header-page>
 
-  <div class="section-inner">
-    Show.vue
-    {{ $route.params.id }}
-  </div>
   <section>
     <div class="section-inner">
       <div class="container">
@@ -45,18 +41,46 @@
 </template>
 
 <script>
-    export default {
-      data () {
-        return {
-          }
-        }
-        ,
-        computed: {
-          work () {
-            let id = this.$route.params.id;
-            // console.log(this);
-            return this.$store.getters.getWorkById(id);
-          }
-        }
+export default {
+
+  data () {
+    return {
+      work : null,
+      loading: false,
+      error: null
     }
+  },
+
+  created(){
+      console.log('created');
+      this.fetchData_work() // recuperer les données data
+  },
+
+  watch: {
+      // appeler encore la méthode si la route change
+      '$route': 'fetchData_work'
+  },
+
+  methods: {
+    fetchData_work: function() {
+      console.log('getWorkById');
+      this.error = this.work = null
+      this.loading = true
+      let id = this.$route.params.id
+
+      axios.get('api/works/' + id)
+           .then( response => {
+               console.log(response)
+               this.work = response.data
+         })
+
+         .catch(error => {
+           console.log(error)
+           this.errored = error.toString()
+         })
+
+         .finally(() => this.loading = false)
+    }
+  }
+}
 </script>

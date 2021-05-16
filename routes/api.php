@@ -21,8 +21,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 use App\Http\Controllers\Works;
 Route::resource('works', Works::class, [
-  'except' => ['show', 'create', 'edit']
+  'except' => ['create', 'edit']
 ]);
+
+
+Route::get('works/categorie/{id}', [Works::class, 'worksByCategorieId']);
+
 
 use App\Http\Controllers\Categories;
 Route::resource('categories', Categories::class, [

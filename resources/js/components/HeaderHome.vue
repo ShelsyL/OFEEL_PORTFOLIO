@@ -13,5 +13,13 @@
 
 <script>
     export default {
+      // data () {
+      //   seconds : 0
+      // },
+      // mounted: function () {
+      //   setInterval(() => {
+      //     this.seconds++
+      //   }, 1000)
+      // },
     }
 </script>

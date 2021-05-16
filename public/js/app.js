@@ -1979,7 +1979,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({// data () {
+  //   seconds : 0
+  // },
+  // mounted: function () {
+  //   setInterval(() => {
+  //     this.seconds++
+  //   }, 1000)
+  // },
+});
 
 /***/ }),
 
@@ -2077,6 +2085,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
@@ -2120,18 +2130,88 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      works: null,
+      loading: false,
+      error: null
+    };
   },
-  computed: {
-    works: function works() {
+  beforeCreate: function beforeCreate() {
+    console.log('beforeCreate');
+  },
+  created: function created() {
+    console.log('created');
+    this.fetchData();
+  },
+  beforeMount: function beforeMount() {
+    console.log('beforeMount');
+  },
+  mounted: function mounted() {
+    console.log('mounted');
+  },
+  beforeUpdate: function beforeUpdate() {
+    console.log('beforeUpdate');
+  },
+  updated: function updated() {
+    console.log('updated');
+  },
+  beforeDestroy: function beforeDestroy() {
+    console.log('beforeDestroy');
+  },
+  destroyed: function destroyed() {
+    console.log('destroyed');
+  },
+  watch: {
+    // appeler encore la mÃ©thode si la route change
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData: function fetchData() {
+      console.log('fetchData');
       var idCat = this.$route.params.id;
+      console.log(_typeof(idCat));
+      console.log(idCat);
 
-      if (typeof idCat !== 'undefined' && idCat !== 1) {
-        // console.log("Coucou");
-        return this.$store.getters.getWorksByCategorieId(idCat);
+      if (typeof idCat === 'undefined') {
+        console.log('is');
+        this.getAllWorks();
+      } else {
+        console.log('isnt');
+        this.getWorksByCategorie();
       }
+    },
+    getAllWorks: function getAllWorks() {
+      var _this = this;
 
-      return this.$store.getters.getWorks;
+      console.log('getAllWorks');
+      this.error = this.works = null;
+      this.loading = true;
+      axios.get('api/works/').then(function (response) {
+        console.log(response);
+        _this.works = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+        _this.errored = error.toString();
+      })["finally"](function () {
+        return _this.loading = false;
+      });
+    },
+    getWorksByCategorie: function getWorksByCategorie() {
+      var _this2 = this;
+
+      console.log('getWorksByCategorie');
+      this.error = this.works = null;
+      this.loading = true;
+      var idCat = this.$route.params.id;
+      axios.get('api/works/categorie/' + idCat).then(function (response) {
+        console.log(response);
+        _this2.works = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.errored = error.toString();
+      })["finally"](function () {
+        return _this2.loading = false;
+      });
     }
   }
 });
@@ -2191,19 +2271,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      work: null,
+      loading: false,
+      error: null
+    };
   },
-  computed: {
-    work: function work() {
-      var id = this.$route.params.id; // console.log(this);
+  created: function created() {
+    console.log('created');
+    this.fetchData_work(); // recuperer les données data
+  },
+  watch: {
+    // appeler encore la méthode si la route change
+    '$route': 'fetchData_work'
+  },
+  methods: {
+    fetchData_work: function fetchData_work() {
+      var _this = this;
 
-      return this.$store.getters.getWorkById(id);
+      console.log('getWorkById');
+      this.error = this.work = null;
+      this.loading = true;
+      var id = this.$route.params.id;
+      axios.get('api/works/' + id).then(function (response) {
+        console.log(response);
+        _this.work = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+        _this.errored = error.toString();
+      })["finally"](function () {
+        return _this.loading = false;
+      });
     }
   }
 });
@@ -2417,14 +2517,12 @@ var getters = {
   * @param  {[type]} state [description]
   * @return {[type]}       [description]
   */
-  getWorkById: function getWorkById(state) {
-    return function (id) {
-      return state.works.find(function (work) {
-        return work.id == id;
-      });
-      console.log(state);
-    };
-  },
+  // getWorkById (state) {
+  //   return function(id) {
+  //       return state.works.find(work => work.id == id);
+  //       console.log(state);
+  //     }
+  // },
 
   /**
   * ALL CATEGORIES
@@ -38813,37 +38911,41 @@ var render = function() {
         _c(
           "ul",
           { staticClass: "portfolio-filter mb30 list-inline wow" },
-          _vm._l(_vm.categories, function(categorie) {
-            return _c(
-              "li",
-              { key: categorie.id },
-              [
-                _c(
-                  "router-link",
-                  {
-                    attrs: {
-                      to: {
-                        name: "categories.show",
-                        params: { id: categorie.id }
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._l(_vm.categories, function(categorie) {
+              return _c(
+                "li",
+                { key: categorie.id },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "categories.show",
+                          params: { id: categorie.id }
+                        }
                       }
-                    }
-                  },
-                  [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { href: "#", "data-filter": "*" }
-                      },
-                      [_vm._v(_vm._s(categorie.name))]
-                    )
-                  ]
-                )
-              ],
-              1
-            )
-          }),
-          0
+                    },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { href: "#", "data-filter": "*" }
+                        },
+                        [_vm._v(_vm._s(categorie.name))]
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            })
+          ],
+          2
         )
       ])
     ])
@@ -38860,6 +38962,21 @@ var staticRenderFns = [
       _c("h3", { staticClass: "section-subheading secondary-font" }, [
         _vm._v("Liste des works de Chelsea")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { href: "#", "data-filter": "*" }
+        },
+        [_vm._v("All")]
+      )
     ])
   }
 ]
@@ -38914,7 +39031,7 @@ var render = function() {
                     staticClass:
                       "portfolio-items nopadding-lr isotope list-unstyled"
                   },
-                  _vm._l(_vm.works, function(work) {
+                  _vm._l(this.works, function(work) {
                     return _c(
                       "li",
                       {
@@ -39040,10 +39157,6 @@ var render = function() {
     {},
     [
       _c("header-page"),
-      _vm._v(" "),
-      _c("div", { staticClass: "section-inner" }, [
-        _vm._v("\n    Show.vue\n    " + _vm._s(_vm.$route.params.id) + "\n  ")
-      ]),
       _vm._v(" "),
       _c("section", [
         _c("div", { staticClass: "section-inner" }, [

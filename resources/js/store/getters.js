@@ -17,12 +17,12 @@ let getters = {
   * @param  {[type]} state [description]
   * @return {[type]}       [description]
   */
-  getWorkById (state) {
-    return function(id) {
-        return state.works.find(work => work.id == id);
-        console.log(state);
-      }
-  },
+  // getWorkById (state) {
+  //   return function(id) {
+  //       return state.works.find(work => work.id == id);
+  //       console.log(state);
+  //     }
+  // },
 
 
   /**
