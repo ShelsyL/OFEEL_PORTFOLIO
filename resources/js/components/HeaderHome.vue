@@ -18,10 +18,11 @@
       $(document).ready(function() {
         'use strict';
         jQuery('#headerwrap').backstretch([
-          // "assets/img/bg/douceur.jpg",
-          "assets/img/bg/bg1.jpg",
-          "assets/img/bg/bg2.jpg",
-          "assets/img/bg/bg3.jpg",
+          "assets/img/bg/bg1ofeel.jpg",
+          // "assets/img/bg/bg1.jpg",
+          // "assets/img/bg/bg2.jpg",
+          "assets/img/bg/bg2ofeel.jpg",
+          // "assets/img/bg/bg3.jpg",
         ], {
           duration: 8000,
           fade: 500

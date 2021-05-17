@@ -27,6 +27,7 @@ Vue.component('header-home', require('./components/HeaderHome.vue').default);
 Vue.component('header-page', require('./components/HeaderPage.vue').default);
 Vue.component('footer-component', require('./components/FooterComponent.vue').default);
 Vue.component('categories-menu', require('./components/categories/CategoriesMenu.vue').default);
+Vue.component('comments-work', require('./components/works/CommentsWork.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
