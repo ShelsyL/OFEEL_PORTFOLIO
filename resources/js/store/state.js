@@ -1,6 +1,7 @@
 // ./resources/js/store/state.js
 
 let state = {
+    work: [],
     works: [],
     categories: []
 }

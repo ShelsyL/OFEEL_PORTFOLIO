@@ -2206,8 +2206,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 //
 //
 //
@@ -2251,90 +2249,76 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
-      works: null,
-      loading: false,
-      error: null
+    return {// works: null,
+      // loading: false,
+      // error: null
     };
   },
-  beforeCreate: function beforeCreate() {
-    console.log('beforeCreate');
+  watch: {// appeler encore la méthode si la route change
+    // '$route': 'fetchData'
   },
-  created: function created() {
-    console.log('created');
-    this.fetchData();
-  },
-  beforeMount: function beforeMount() {
-    console.log('beforeMount');
-  },
-  mounted: function mounted() {
-    console.log('mounted');
-  },
-  beforeUpdate: function beforeUpdate() {
-    console.log('beforeUpdate');
-  },
-  updated: function updated() {
-    console.log('updated');
-  },
-  beforeDestroy: function beforeDestroy() {
-    console.log('beforeDestroy');
-  },
-  destroyed: function destroyed() {
-    console.log('destroyed');
-  },
-  watch: {
-    // appeler encore la méthode si la route change
-    '$route': 'fetchData'
-  },
-  methods: {
-    fetchData: function fetchData() {
-      console.log('fetchData');
+  computed: {
+    works: function works() {
       var idCat = this.$route.params.id;
-      console.log(_typeof(idCat));
-      console.log(idCat);
 
       if (typeof idCat === 'undefined') {
         console.log('is');
-        this.getAllWorks();
+        return this.$store.getters.getWorks;
       } else {
         console.log('isnt');
-        this.getWorksByCategorie();
-      }
-    },
-    getAllWorks: function getAllWorks() {
-      var _this = this;
+        return this.$store.getters.getWorksByCategorieId(idCat);
+      } // return this.$store.getters.getWorks;
 
-      console.log('getAllWorks');
-      this.error = this.works = null;
-      this.loading = true;
-      axios.get('api/works/').then(function (response) {
-        console.log(response);
-        _this.works = response.data;
-      })["catch"](function (error) {
-        console.log(error);
-        _this.errored = error.toString();
-      })["finally"](function () {
-        return _this.loading = false;
-      });
-    },
-    getWorksByCategorie: function getWorksByCategorie() {
-      var _this2 = this;
-
-      console.log('getWorksByCategorie');
-      this.error = this.works = null;
-      this.loading = true;
-      var idCat = this.$route.params.id;
-      axios.get('api/works/categorie/' + idCat).then(function (response) {
-        console.log(response);
-        _this2.works = response.data;
-      })["catch"](function (error) {
-        console.log(error);
-        _this2.errored = error.toString();
-      })["finally"](function () {
-        return _this2.loading = false;
-      });
     }
-  }
+  } // methods: {
+  //   fetchData: function() {
+  //     // console.log('fetchData')
+  //
+  //     let idCat = this.$route.params.id
+  //     console.log(typeof(idCat))
+  //     console.log(idCat)
+  //
+  //     if(typeof idCat === 'undefined'){
+  //       console.log('is')
+  //       return this.$store.getters.getWorks()
+  //     }else{
+  //       console.log('isnt')
+  //       this.getWorksByCategorie()
+  //     }
+  //   },
+  // getAllWorks: function() {
+  //   console.log('getAllWorks');
+  //   this.error = this.works = null
+  //   this.loading = true
+  //   axios.get('api/works/')
+  //        .then( response => {
+  //           console.log(response)
+  //           this.works = response.data
+  //   })
+  //   .catch(error => {
+  //     console.log(error)
+  //     this.errored = error.toString()
+  //   })
+  //   .finally(() => this.loading = false)
+  // },
+  // getWorksByCategorie: function() {
+  //   console.log('getWorksByCategorie');
+  //   this.error = this.works = null
+  //   this.loading = true
+  //   let idCat = this.$route.params.id
+  //   axios.get('api/works/categorie/' + idCat)
+  //        .then( response => {
+  //           console.log(response)
+  //           this.works = response.data
+  //   })
+  //   .catch(error => {
+  //     console.log(error)
+  //     this.errored = error.toString()
+  //   })
+  //   .finally(() => this.loading = false)
+  // }
+  // }
+
 });
 
 /***/ }),
@@ -2396,20 +2380,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      work: null,
+      //work : null,
       loading: false,
       error: null
     };
   },
+  computed: {
+    work: function work() {
+      return this.$store.getters.getWork;
+    }
+  },
+  beforeCreate: function beforeCreate() {},
   created: function created() {
-    console.log('created');
-    this.fetchData_work(); // recuperer les données data
+    console.log("works/Show - created");
+    this.fetchData_work(); //let id = this.$route.params.id
+    //this.$store.dispatch('setCurrentWork', id);
+    // this.fetchData_work() // recuperer les données data
   },
   watch: {
     // appeler encore la méthode si la route change
@@ -2417,21 +2406,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchData_work: function fetchData_work() {
-      var _this = this;
-
-      console.log('getWorkById');
-      this.error = this.work = null;
-      this.loading = true;
+      console.log("fetchData_work");
       var id = this.$route.params.id;
-      axios.get('api/works/' + id).then(function (response) {
-        console.log(response);
-        _this.work = response.data;
-      })["catch"](function (error) {
-        console.log(error);
-        _this.errored = error.toString();
-      })["finally"](function () {
-        return _this.loading = false;
-      });
+      this.$store.dispatch('setWork', id);
     }
   }
 });
@@ -2602,7 +2579,7 @@ var actions = {
    */
   setWorks: function setWorks(_ref) {
     var commit = _ref.commit;
-    // TRANSACTION AJAX pour lancer le SETTER
+    console.log("action setWorks");
     axios.get('api/works').then(function (reponsePHP) {
       return commit('SET_WORKS', reponsePHP.data);
     });
@@ -2614,8 +2591,21 @@ var actions = {
    */
   setCategories: function setCategories(_ref2) {
     var commit = _ref2.commit;
+    console.log("action setCategories");
     axios.get('api/categories').then(function (reponsePHP) {
       return commit('SET_CATEGORIES', reponsePHP.data);
+    });
+  },
+
+  /**
+   * WORK
+   * @param {[type]} commit [description]
+   */
+  setWork: function setWork(_ref3, id) {
+    var commit = _ref3.commit;
+    console.log("action setWork : id=" + id);
+    axios.get('api/works/' + id).then(function (reponsePHP) {
+      return commit('SET_WORK', reponsePHP.data);
     });
   }
 };
@@ -2642,20 +2632,23 @@ var getters = {
   * @return {[type]}       [description]
   */
   getWorks: function getWorks(state) {
-    return state.works;
+    var works = state.works;
+    console.log('getWorks');
+    console.log(works);
+    return works;
   },
 
   /**
-  * WORK BY ID
-  * @param  {[type]} state [description]
-  * @return {[type]}       [description]
-  */
-  // getWorkById (state) {
-  //   return function(id) {
-  //       return state.works.find(work => work.id == id);
-  //       console.log(state);
-  //     }
-  // },
+   * WORK
+   * @param  {[type]} state [description]
+   * @return {[type]}       [description]
+   */
+  getWork: function getWork(state) {
+    var work = state.work;
+    console.log('getWork');
+    console.log(work);
+    return work;
+  },
 
   /**
   * ALL CATEGORIES
@@ -2663,7 +2656,10 @@ var getters = {
   * @return {[type]}       [description]
   */
   getCategories: function getCategories(state) {
-    return state.categories;
+    var categories = state.categories;
+    console.log('getCategories');
+    console.log(categories);
+    return categories;
   },
 
   /**
@@ -2673,10 +2669,12 @@ var getters = {
   */
   getWorksByCategorieId: function getWorksByCategorieId(state) {
     return function (id) {
-      // console.log();
-      return state.works.filter(function (work) {
-        return work.categories[0].id == id;
+      var works = state.works.filter(function (work) {
+        return work.categorie_ids.includes(id);
       });
+      console.log('getWorksByCategorieId');
+      console.log(works);
+      return works;
     };
   }
 };
@@ -2732,10 +2730,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // ./resources/js/store/mutations.js
 var mutations = {
+  SET_WORK: function SET_WORK(state, data) {
+    console.log('SET_WORK');
+    console.log(data);
+    state.work = data;
+  },
   SET_WORKS: function SET_WORKS(state, data) {
+    console.log('SET_WORKS');
+    console.log(data);
     state.works = data;
   },
   SET_CATEGORIES: function SET_CATEGORIES(state, data) {
+    console.log('SET_CATEGORIES');
+    console.log(data);
     state.categories = data;
   }
 };
@@ -2756,6 +2763,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // ./resources/js/store/state.js
 var state = {
+  work: [],
   works: [],
   categories: []
 };

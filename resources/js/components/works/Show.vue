@@ -44,49 +44,44 @@
 </template>
 
 
-
-
-
 <script>
 export default {
 
   data () {
     return {
-      work : null,
+      //work : null,
       loading: false,
       error: null
     }
   },
 
+  computed: {
+      work(){
+        return this.$store.getters.getWork;
+      }
+  },
+
+  beforeCreate() {
+  },
+
   created(){
-    console.log('created');
-    this.fetchData_work() // recuperer les données data
+    console.log("works/Show - created")
+    this.fetchData_work()
+    //let id = this.$route.params.id
+    //this.$store.dispatch('setCurrentWork', id);
+    // this.fetchData_work() // recuperer les données data
   },
 
   watch: {
     // appeler encore la méthode si la route change
-    '$route': 'fetchData_work'
+     '$route': 'fetchData_work'
   },
 
   methods: {
-    fetchData_work: function() {
-      console.log('getWorkById');
-      this.error = this.work = null
-      this.loading = true
-      let id = this.$route.params.id
-
-      axios.get('api/works/' + id)
-      .then( response => {
-        console.log(response)
-        this.work = response.data
-      })
-
-      .catch(error => {
-        console.log(error)
-        this.errored = error.toString()
-      })
-
-      .finally(() => this.loading = false)
+      fetchData_work: function(){
+      console.log("fetchData_work")
+      let id = this.$route.params.id;
+      this.$store.dispatch('setWork', id);
     }
   }
 }

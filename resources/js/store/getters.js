@@ -2,27 +2,31 @@
 
 let getters = {
 
+
   /**
   * ALL WORKS
   * @param  {[type]} state [description]
   * @return {[type]}       [description]
   */
   getWorks (state) {
-    return state.works;
+    let works = state.works;
+    console.log('getWorks');
+    console.log(works);
+    return works;
   },
 
 
   /**
-  * WORK BY ID
-  * @param  {[type]} state [description]
-  * @return {[type]}       [description]
-  */
-  // getWorkById (state) {
-  //   return function(id) {
-  //       return state.works.find(work => work.id == id);
-  //       console.log(state);
-  //     }
-  // },
+   * WORK
+   * @param  {[type]} state [description]
+   * @return {[type]}       [description]
+   */
+  getWork (state) {
+    let work = state.work;
+    console.log('getWork');
+    console.log(work);
+    return work;
+  },
 
 
   /**
@@ -31,7 +35,10 @@ let getters = {
   * @return {[type]}       [description]
   */
   getCategories (state) {
-    return state.categories;
+    let categories = state.categories;
+    console.log('getCategories');
+    console.log(categories);
+    return categories;
   },
 
 
@@ -42,11 +49,12 @@ let getters = {
   */
   getWorksByCategorieId (state) {
     return function (id) {
-      // console.log();
-      return state.works.filter(work => work.categories[0].id == id);
+      let works = state.works.filter(work => work.categorie_ids.includes(id));
+      console.log('getWorksByCategorieId');
+      console.log(works);
+      return works;
     }
   }
-
 
 };
 

@@ -9,6 +9,9 @@ class CommentOfWork extends Model
 {
     use HasFactory;
 
+    protected $table = 'commentsOfWork';
+
+
     /**
     * GETTER des works de commentOfWork
     */

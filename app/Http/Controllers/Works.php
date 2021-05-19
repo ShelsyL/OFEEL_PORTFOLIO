@@ -6,16 +6,39 @@ use Illuminate\Http\Request;
 use App\Models\Work;
 use App\Models\Categorie;
 
-class Works extends Controller
-{
+class Works extends Controller {
+
   public function index() {
-    // return response()->json(Work::all());
-    return response()->json(Work::with('categories')->get());
+
+    // Tous les works
+    // $works = Work::all();
+
+    // tout les work + ce que retourne la fonction "getCategorieIdsAttribute"
+    $works = Work::get()->append('categorie_ids');
+
+    // Tous les work + relation "categories"
+    // $works = Work::with('categories')->get();
+
+    // Tous les work + relation "has_categories"
+    // $works = Work::with('has_categories')->get();;
+
+    return response()->json($works);
   }
 
+  // public function index() {
+  //   $works = Work::with('toto')->get();
+  //   $toto = $works[0]->toto;
+  //   $test = $toto->pluck('categorie_id');
+  //   echo $test;
+  //   return response()->json($works);
+  // }
+
   public function show($id) {
-    return response()->json(Work::findOrFail($id));
+    // $work = Work::findOrFail($id)->append('categorie_ids');
+    $work = Work::with('commentsOfWork')->with('tags')->findOrFail($id)->append('categorie_ids');
+    return response()->json($work);
   }
+
 
   public function worksByCategorieId ($id) {
     $categorie = Categorie::findOrFail($id); // recupere categorie par id
