@@ -35,7 +35,7 @@ class Works extends Controller {
 
   public function show($id) {
     // $work = Work::findOrFail($id)->append('categorie_ids');
-    $work = Work::with('commentsOfWork')->with('tags')->findOrFail($id)->append('categorie_ids');
+    $work = Work::with('tags')->findOrFail($id)->append('categorie_ids');
     return response()->json($work);
   }
 

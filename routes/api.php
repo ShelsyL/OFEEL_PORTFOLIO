@@ -32,3 +32,14 @@ use App\Http\Controllers\Categories;
 Route::resource('categories', Categories::class, [
   'except' => ['show', 'create', 'edit']
 ]);
+
+use App\Http\Controllers\Workcomments;
+Route::resource('workcomments', Workcomments::class, [
+  'except' => ['show', 'create', 'edit']
+]);
+
+// recuperation des commentaire pour un id de work fournis en parametre
+Route::get('workcomments/work/{id}', [Workcomments::class, 'getCommentsByWorkId']);
+
+// DOC :
+// https://laravel.com/docs/8.x/controllers#actions-handled-by-resource-controller

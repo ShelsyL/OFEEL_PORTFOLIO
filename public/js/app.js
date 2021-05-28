@@ -1985,10 +1985,7 @@ __webpack_require__.r(__webpack_exports__);
     $(document).ready(function () {
       'use strict';
 
-      jQuery('#headerwrap').backstretch(["assets/img/bg/bg1ofeel.jpg", // "assets/img/bg/bg1.jpg",
-      // "assets/img/bg/bg2.jpg",
-      "assets/img/bg/bg2ofeel.jpg" // "assets/img/bg/bg3.jpg",
-      ], {
+      jQuery('#headerwrap').backstretch(["assets/img/bg/bg1.jpg", "assets/img/bg/bg2.jpg", "assets/img/bg/bg3.jpg", "assets/img/bg/bg4.jpg", "assets/img/bg/bg6.jpg", "assets/img/bg/bg7.jpg"], {
         duration: 8000,
         fade: 500
       });
@@ -2033,7 +2030,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {};
+  },
+  computed: {
+    work: function work() {
+      return this.$store.getters.getWork;
+    }
+  }
+});
 
 /***/ }),
 
@@ -2174,23 +2180,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'comments-work'
+  name: 'comments-work',
+  data: function data() {
+    return {
+      newWorkcomment: {
+        pseudo: '',
+        content: '',
+        work_id: ''
+      }
+    };
+  },
+  created: function created() {
+    console.log("CommentsWorks/Show - created");
+    this.getComments();
+  },
+  watch: {
+    // appeler encore la méthode si la route change
+    '$route': 'getComments'
+  },
+  methods: {
+    // Envoi d'un nouveau comment
+    createWorkcomment: function createWorkcomment(comment) {
+      this.$store.dispatch('createWorkcomment', comment);
+      this.newWorkcomment = {
+        pseudo: '',
+        content: '',
+        work_id: null
+      };
+    },
+    getComments: function getComments() {
+      var id = this.$route.params.id;
+      this.$store.dispatch('setWorkcomments', id);
+    }
+  },
+  computed: {
+    work: function work() {
+      return this.$store.getters.getWork;
+    },
+    // Affichage des commentaires
+    workcomments: function workcomments() {
+      return this.$store.getters.getComments();
+    }
+  }
 });
 
 /***/ }),
@@ -2261,64 +2293,16 @@ __webpack_require__.r(__webpack_exports__);
     works: function works() {
       var idCat = this.$route.params.id;
 
-      if (typeof idCat === 'undefined') {
-        console.log('is');
+      if (typeof idCat === 'undefined' || idCat === 1) {
+        console.log('all');
         return this.$store.getters.getWorks;
       } else {
-        console.log('isnt');
+        console.log('byCat');
         return this.$store.getters.getWorksByCategorieId(idCat);
       } // return this.$store.getters.getWorks;
 
     }
-  } // methods: {
-  //   fetchData: function() {
-  //     // console.log('fetchData')
-  //
-  //     let idCat = this.$route.params.id
-  //     console.log(typeof(idCat))
-  //     console.log(idCat)
-  //
-  //     if(typeof idCat === 'undefined'){
-  //       console.log('is')
-  //       return this.$store.getters.getWorks()
-  //     }else{
-  //       console.log('isnt')
-  //       this.getWorksByCategorie()
-  //     }
-  //   },
-  // getAllWorks: function() {
-  //   console.log('getAllWorks');
-  //   this.error = this.works = null
-  //   this.loading = true
-  //   axios.get('api/works/')
-  //        .then( response => {
-  //           console.log(response)
-  //           this.works = response.data
-  //   })
-  //   .catch(error => {
-  //     console.log(error)
-  //     this.errored = error.toString()
-  //   })
-  //   .finally(() => this.loading = false)
-  // },
-  // getWorksByCategorie: function() {
-  //   console.log('getWorksByCategorie');
-  //   this.error = this.works = null
-  //   this.loading = true
-  //   let idCat = this.$route.params.id
-  //   axios.get('api/works/categorie/' + idCat)
-  //        .then( response => {
-  //           console.log(response)
-  //           this.works = response.data
-  //   })
-  //   .catch(error => {
-  //     console.log(error)
-  //     this.errored = error.toString()
-  //   })
-  //   .finally(() => this.loading = false)
-  // }
-  // }
-
+  }
 });
 
 /***/ }),
@@ -2607,9 +2591,43 @@ var actions = {
     axios.get('api/works/' + id).then(function (reponsePHP) {
       return commit('SET_WORK', reponsePHP.data);
     });
+  },
+
+  /**
+   * COMMENTS PAR ID DU WORK
+   */
+  setWorkcomments: function setWorkcomments(_ref4, id) {
+    var commit = _ref4.commit;
+    console.log("action setWorkcomments : id=" + id);
+    axios.get('api/workcomments/work/' + id).then(function (reponsePHP) {
+      return commit('SET_WORKCOMMENTS', reponsePHP.data);
+    });
+  },
+
+  /**
+   * CREATION DU COMMENTS
+   */
+  createWorkcomment: function createWorkcomment(_ref5, comment) {
+    var _this = this;
+
+    var commit = _ref5.commit;
+    console.log("action createWorkcomment :");
+    console.log(comment); // Envois le commentaire dans la liste des commentaires
+
+    axios.post('api/workcomments', comment).then(function (reponsePHP) {
+      console.log(reponsePHP);
+
+      if (reponsePHP.status == 200) {
+        console.log("sucess"); // Recuperation de tous les commentaires du work
+
+        _this.dispatch('setWorkcomments', comment.work_id);
+      }
+    })["catch"](function (err) {
+      console.log(err);
+    });
   }
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actions);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actions); // https://laravel.com/docs/8.x/controllers#basic-controllersponsePHP.data)));
 
 /***/ }),
 
@@ -2629,7 +2647,7 @@ var getters = {
   /**
   * ALL WORKS
   * @param  {[type]} state [description]
-  * @return {[type]}       [description]
+  * @return works
   */
   getWorks: function getWorks(state) {
     var works = state.works;
@@ -2669,12 +2687,24 @@ var getters = {
   */
   getWorksByCategorieId: function getWorksByCategorieId(state) {
     return function (id) {
+      console.log('getWorksByCategorieId, id=' + id);
       var works = state.works.filter(function (work) {
         return work.categorie_ids.includes(id);
       });
-      console.log('getWorksByCategorieId');
       console.log(works);
       return works;
+    };
+  },
+
+  /**
+   * COMMENTS
+   */
+  getComments: function getComments(state) {
+    return function (id) {
+      var comments = state.workcomments;
+      console.log('getComments');
+      console.log(comments);
+      return comments;
     };
   }
 };
@@ -2744,6 +2774,11 @@ var mutations = {
     console.log('SET_CATEGORIES');
     console.log(data);
     state.categories = data;
+  },
+  SET_WORKCOMMENTS: function SET_WORKCOMMENTS(state, data) {
+    console.log('SET_WORKCOMMENTS');
+    console.log(data);
+    state.workcomments = data;
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mutations);
@@ -2765,7 +2800,8 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   work: [],
   works: [],
-  categories: []
+  categories: [],
+  workcomments: []
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (state);
 
@@ -39007,7 +39043,7 @@ var staticRenderFns = [
                   staticClass: "intro-heading wow fadeIn heading-font",
                   attrs: { "data-wow-delay": "0.2s" }
                 },
-                [_vm._v("Welcome to my portfolio")]
+                [_vm._v("OFEEL PORTFOLIO")]
               ),
               _vm._v(" "),
               _c(
@@ -39061,39 +39097,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "section",
-      {
-        staticClass: "dark-wrapper opaqued parallax",
-        attrs: {
-          "data-parallax": "scroll",
-          "data-image-src": "assets/img/bg/bg2.jpg",
-          "data-speed": "0.7"
-        }
-      },
-      [
-        _c("div", { staticClass: "section-inner pad-top-200" }, [
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-lg-12 mt30 wow text-center" }, [
-                _c("h2", { staticClass: "section-heading" }, [
-                  _vm._v("Mon portfolio")
-                ])
+  return _c(
+    "section",
+    {
+      staticClass: "dark-wrapper opaqued parallax",
+      attrs: {
+        "data-parallax": "scroll",
+        "data-image-src": "assets/img/bg/bg2.jpg",
+        "data-speed": "0.7"
+      }
+    },
+    [
+      _c("div", { staticClass: "section-inner pad-top-200" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-12 mt30 wow text-center" }, [
+              _c("h2", { staticClass: "section-heading" }, [
+                _vm._v(_vm._s(_vm.work.title))
               ])
             ])
           ])
         ])
-      ]
-    )
-  }
-]
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39124,41 +39153,37 @@ var render = function() {
         _c(
           "ul",
           { staticClass: "portfolio-filter mb30 list-inline wow" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._l(_vm.categories, function(categorie) {
-              return _c(
-                "li",
-                { key: categorie.id },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      attrs: {
-                        to: {
-                          name: "categories.show",
-                          params: { id: categorie.id }
-                        }
+          _vm._l(_vm.categories, function(categorie) {
+            return _c(
+              "li",
+              { key: categorie.id },
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: {
+                        name: "categories.show",
+                        params: { id: categorie.id }
                       }
-                    },
-                    [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: { href: "#", "data-filter": "*" }
-                        },
-                        [_vm._v(_vm._s(categorie.name))]
-                      )
-                    ]
-                  )
-                ],
-                1
-              )
-            })
-          ],
-          2
+                    }
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { href: "#", "data-filter": "*" }
+                      },
+                      [_vm._v(_vm._s(categorie.name))]
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          }),
+          0
         )
       ])
     ])
@@ -39170,26 +39195,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-6 mb100 wow" }, [
-      _c("h2", { staticClass: "section-heading" }, [_vm._v("Recent Works")]),
+      _c("h2", { staticClass: "section-heading" }, [_vm._v("Portfolio")]),
       _vm._v(" "),
       _c("h3", { staticClass: "section-subheading secondary-font" }, [
-        _vm._v("Liste des works de Chelsea")
+        _vm._v("By Chelsea Louis")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { href: "#", "data-filter": "*" }
-        },
-        [_vm._v("All")]
-      )
     ])
   }
 ]
@@ -39215,226 +39225,235 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", [
+    _c("div", { staticClass: "section-inner" }, [
+      _c("div", { staticClass: "container pad-sides-120" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-3" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-sm-9 blog-item mb60 wow",
+              attrs: { id: "post-content" }
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-12 single-post-content" }, [
+                  _c(
+                    "div",
+                    { staticClass: "gap wow", attrs: { id: "comments-list" } },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _vm._l(_vm.workcomments, function(workcomment) {
+                        return _c(
+                          "div",
+                          { key: workcomment.id, staticClass: "media" },
+                          [
+                            _vm._m(1, true),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "media-body" }, [
+                              _c("div", { staticClass: "well" }, [
+                                _c("div", { staticClass: "media-heading" }, [
+                                  _c("span", { staticClass: "heading-font" }, [
+                                    _vm._v(_vm._s(workcomment.pseudo))
+                                  ]),
+                                  _vm._v("  "),
+                                  _c("small", [
+                                    _vm._v(
+                                      _vm._s(workcomment.created_at) +
+                                        "30th Jan, 2015"
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v(_vm._s(workcomment.content))])
+                              ])
+                            ])
+                          ]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "row wow",
+                          attrs: { id: "comments-form" }
+                        },
+                        [
+                          _c("div", { staticClass: "col-md-12" }, [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c(
+                              "form",
+                              {
+                                staticClass: "comment-form",
+                                attrs: { method: "post", id: "commentform" },
+                                on: {
+                                  submit: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.createWorkcomment(
+                                      _vm.newWorkcomment
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: (_vm.newWorkcomment.work_id =
+                                        _vm.work.id),
+                                      expression:
+                                        "newWorkcomment.work_id = work.id"
+                                    }
+                                  ],
+                                  attrs: {
+                                    id: "work_id",
+                                    type: "hidden",
+                                    name: "work_id"
+                                  },
+                                  domProps: {
+                                    value: (_vm.newWorkcomment.work_id =
+                                      _vm.work.id)
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        (_vm.newWorkcomment.work_id = _vm.work),
+                                        "id",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newWorkcomment.pseudo,
+                                      expression: "newWorkcomment.pseudo"
+                                    }
+                                  ],
+                                  staticClass: "form-control col-md-4",
+                                  attrs: {
+                                    type: "text",
+                                    id: "pseudo",
+                                    name: "pseudo",
+                                    placeholder: "Votre Nom | Pseudo *"
+                                  },
+                                  domProps: {
+                                    value: _vm.newWorkcomment.pseudo
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.newWorkcomment,
+                                        "pseudo",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newWorkcomment.content,
+                                      expression: "newWorkcomment.content"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    id: "content",
+                                    name: "content",
+                                    placeholder: "Votre message *"
+                                  },
+                                  domProps: {
+                                    value: _vm.newWorkcomment.content
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.newWorkcomment,
+                                        "content",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm._m(3)
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    ],
+                    2
+                  )
+                ])
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", [
-      _c("div", { staticClass: "section-inner" }, [
-        _c("div", { staticClass: "container pad-sides-120" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-3" }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "col-sm-9 blog-item mb60 wow",
-                attrs: { id: "post-content" }
-              },
-              [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-12 single-post-content" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "gap wow",
-                        attrs: { id: "comments-list" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "mt60 mb50 single-section-title" },
-                          [_c("h3", [_vm._v("3 Comments")])]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "media" }, [
-                          _c("div", { staticClass: "pull-left" }, [
-                            _c("img", {
-                              staticClass: "avatar comment-avatar",
-                              attrs: { src: "assets/img/users/1.jpg", alt: "" }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "media-body" }, [
-                            _c("div", { staticClass: "well" }, [
-                              _c("div", { staticClass: "media-heading" }, [
-                                _c("span", { staticClass: "heading-font" }, [
-                                  _vm._v("Dave Evans")
-                                ]),
-                                _vm._v("  "),
-                                _c("small", { staticClass: "secondary-font" }, [
-                                  _vm._v("30th Jan, 2015")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "Was are delightful solicitude discovered collecting man day. Resolving neglected sir tolerably but existence conveying for. Day his put off unaffected literature partiality inhabiting."
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-primary pull-right",
-                                  attrs: { href: "#" }
-                                },
-                                [_vm._v("Reply")]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "media" }, [
-                              _c("div", { staticClass: "pull-left" }, [
-                                _c("img", {
-                                  staticClass: "avatar comment-avatar",
-                                  attrs: {
-                                    src: "assets/img/users/2.jpg",
-                                    alt: ""
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "media-body" }, [
-                                _c("div", { staticClass: "well" }, [
-                                  _c("div", { staticClass: "media-heading" }, [
-                                    _c(
-                                      "span",
-                                      { staticClass: "heading-font" },
-                                      [_vm._v("Dave Evans")]
-                                    ),
-                                    _vm._v("  "),
-                                    _c("small", [_vm._v("30th Jan, 2015")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      "Wicket longer admire do barton vanity itself do in it. Preferred to sportsmen it engrossed listening. Park gate sell they west hard for the. Abode stuff noisy manor blush yet the far. Up colonel so between removed so do."
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-primary pull-right",
-                                      attrs: { href: "#" }
-                                    },
-                                    [_vm._v("Reply")]
-                                  )
-                                ])
-                              ])
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "media" }, [
-                          _c("div", { staticClass: "pull-left" }, [
-                            _c("img", {
-                              staticClass: "avatar comment-avatar",
-                              attrs: { src: "assets/img/users/3.jpg", alt: "" }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "media-body" }, [
-                            _c("div", { staticClass: "well" }, [
-                              _c("div", { staticClass: "media-heading" }, [
-                                _c("span", { staticClass: "heading-font" }, [
-                                  _vm._v("Dave Evans")
-                                ]),
-                                _vm._v("  "),
-                                _c("small", [_vm._v("30th Jan, 2015")])
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "Quitting informed concerns can men now. Projection to or up conviction uncommonly delightful continuing. In appetite ecstatic opinions hastened by handsome admitted."
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-primary pull-right",
-                                  attrs: { href: "#" }
-                                },
-                                [_vm._v("Reply")]
-                              )
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "row wow",
-                            attrs: { id: "comments-form" }
-                          },
-                          [
-                            _c("div", { staticClass: "col-md-12" }, [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "mt60 mb50 single-section-title"
-                                },
-                                [_c("h3", [_vm._v("Commentaires")])]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "form",
-                                {
-                                  staticClass: "comment-form",
-                                  attrs: { method: "post", id: "commentform" }
-                                },
-                                [
-                                  _c("input", {
-                                    staticClass: "form-control col-md-4",
-                                    attrs: {
-                                      type: "text",
-                                      name: "name2",
-                                      placeholder: "Votre Nom | Pseudo *",
-                                      id: "name2",
-                                      required: "",
-                                      "data-validation-required-message":
-                                        "Please enter your name."
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("textarea", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      name: "comments2",
-                                      id: "comments2",
-                                      placeholder: "Votre message *",
-                                      required: "",
-                                      "data-validation-required-message":
-                                        "Please enter a message."
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-primary pull-right",
-                                      attrs: { href: "#" }
-                                    },
-                                    [_vm._v("Envoyer")]
-                                  )
-                                ]
-                              )
-                            ])
-                          ]
-                        )
-                      ]
-                    )
-                  ])
-                ])
-              ]
-            )
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "mt60 mb50 single-section-title" }, [
+      _c("h3", [_vm._v("Commentaires")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "pull-left" }, [
+      _c("img", {
+        staticClass: "avatar comment-avatar",
+        attrs: { src: "assets/img/users/ours.jpg", alt: "" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mt60 mb50 single-section-title" }, [
+      _c("h3", [_vm._v("Laisser un commentaires")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("input", {
+        staticClass: "btn btn-primary pull-right",
+        attrs: { type: "submit", name: "envoi", value: "Envoyer" }
+      })
     ])
   }
 ]
@@ -39575,16 +39594,12 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "smoothie mb30" }, [
-      _c(
-        "a",
-        {
-          attrs: {
-            href: "single-portfolio-fullscreen.html",
-            title: "view project"
-          }
-        },
-        [_vm._v("Fullscreen Gallery")]
-      )
+      _c("a", {
+        attrs: {
+          href: "single-portfolio-fullscreen.html",
+          title: "view project"
+        }
+      })
     ])
   }
 ]

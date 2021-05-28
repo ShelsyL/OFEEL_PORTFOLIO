@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CommentOfWork extends Model
-{
+class Workcomment extends Model {
+
     use HasFactory;
 
-    protected $table = 'commentsOfWork';
-
+    protected $fillable = [ 'pseudo', 'content', 'work_id'];
 
     /**
-    * GETTER des works de commentOfWork
+    * GETTER des works des comments
     */
     public function work(){
       return $this->belongsTo('App\Models\Work');

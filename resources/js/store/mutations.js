@@ -20,7 +20,15 @@ let mutations = {
     console.log('SET_CATEGORIES');
     console.log(data);
     state.categories = data;
-  }
+  },
+
+
+  SET_WORKCOMMENTS (state, data) {
+    console.log('SET_WORKCOMMENTS');
+    console.log(data);
+    state.workcomments = data;
+},
+
 
 };
 

@@ -5,7 +5,7 @@
           <div class="container">
               <div class="row">
                   <div class="col-lg-12 mt30 wow text-center">
-                      <h2 class="section-heading">Mon portfolio</h2>
+                      <h2 class="section-heading">{{ work.title }}</h2>
                   </div>
               </div>
           </div>
@@ -15,5 +15,14 @@
 
 <script>
     export default {
+      data () {
+        return{};
+      },
+
+      computed: {
+        work(){
+          return this.$store.getters.getWork;
+        },
     }
+  }
 </script>

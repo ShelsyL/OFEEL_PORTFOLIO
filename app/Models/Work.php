@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Work extends Model
-{
+class Work extends Model {
+
     use HasFactory;
 
-  //  protected $appends = ['categorie_ids'];
+  protected $table = 'works';
   protected $fillable = ['title'];
 
 
     /**
-    * GETTER des comments du post.
+    * GETTER des comments du work
     */
-    public function commentsOfWork() {
-      return $this->hasMany('App\Models\CommentOfWork');
+    public function workcomments() {
+      return $this->hasMany('App\Models\Workcomment');
     }
 
 
@@ -30,19 +30,24 @@ class Work extends Model
 
 
     /**
-    * GETTER des categories du work
+    * GETTER de la relation des categories du work
     */
     public function categories() {
       return $this->belongsToMany('App\Models\Categorie', 'works_has_categories');
     }
 
+    /**
+    * GETTER de la relation des workascategorie du work
+    * @return has_categories contient la relation avec la table has_Categore
+    */
     public function has_categories() {
       return $this->hasMany('App\Models\WorkHasCategories', 'work_id','id');
     }
 
 
     /**
-    * GETTER des categories du work (par ids)
+    * GETTER de la relation des workhascategorie du work
+    * @return categorie_ids tableau de id categories.
     */
     public function getCategorieIdsAttribute() {
        return $this->hasMany('App\Models\WorkHasCategories', 'work_id','id')->pluck('categorie_id');

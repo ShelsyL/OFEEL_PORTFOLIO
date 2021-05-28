@@ -3,7 +3,8 @@
 let state = {
     work: [],
     works: [],
-    categories: []
+    categories: [],
+    workcomments: []
 }
 
 export default state;

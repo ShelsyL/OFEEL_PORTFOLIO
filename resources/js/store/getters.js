@@ -6,7 +6,7 @@ let getters = {
   /**
   * ALL WORKS
   * @param  {[type]} state [description]
-  * @return {[type]}       [description]
+  * @return works
   */
   getWorks (state) {
     let works = state.works;
@@ -49,12 +49,25 @@ let getters = {
   */
   getWorksByCategorieId (state) {
     return function (id) {
+      console.log('getWorksByCategorieId, id=' + id);
       let works = state.works.filter(work => work.categorie_ids.includes(id));
-      console.log('getWorksByCategorieId');
       console.log(works);
       return works;
     }
-  }
+  },
+
+
+  /**
+   * COMMENTS
+   */
+  getComments (state) {
+    return function (id) {
+      let comments = state.workcomments;
+      console.log('getComments');
+      console.log(comments);
+      return comments;
+    }
+  },
 
 };
 

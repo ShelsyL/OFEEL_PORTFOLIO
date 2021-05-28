@@ -12,8 +12,8 @@ class Article extends Model
     /**
     * GETTER des comments d'article.
     */
-    public function commentsOfArticle() {
-      return $this->hasMany('App\Models\CommentOfArticle');
+    public function artcomments() {
+      return $this->hasMany('App\Models\Artcomment');
     }
 
     /**

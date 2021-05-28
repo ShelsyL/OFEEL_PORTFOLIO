@@ -24,7 +24,7 @@
                               <div class="overlay-item-caption smoothie"></div>
                               <div class="hover-item-caption smoothie">
                                   <div class="vertical-center smoothie">
-                                      <h3 class="smoothie mb30"><a href="single-portfolio-fullscreen.html" title="view project">Fullscreen Gallery</a></h3>
+                                      <h3 class="smoothie mb30"><a href="single-portfolio-fullscreen.html" title="view project"></a></h3>
                                       <a :href="'assets/img/portfolio/' + work.image" title="View Gallery" class="btn btn-primary lb-link smoothie">Zoom</a>
                                       <router-link class="smoothie btn btn-primary" :to="{name: 'works.show', params: { id: work.id}}">View</router-link>
                                   </div>
@@ -49,76 +49,24 @@ export default {
     }
   },
 
-    watch: {
-      // appeler encore la méthode si la route change
-      // '$route': 'fetchData'
-    },
-
-computed: {
-  works() {
-    let idCat = this.$route.params.id;
-        if(typeof idCat === 'undefined'){
-          console.log('is')
-          return this.$store.getters.getWorks;
-        }else{
-          console.log('isnt')
-          return this.$store.getters.getWorksByCategorieId(idCat);
-        }
-    // return this.$store.getters.getWorks;
+  watch: {
+    // appeler encore la méthode si la route change
+    // '$route': 'fetchData'
   },
 
-}
+  computed: {
+    works() {
+      let idCat = this.$route.params.id;
+      if(typeof idCat === 'undefined' || idCat === 1){
+        console.log('all')
+        return this.$store.getters.getWorks;
+      }else{
+        console.log('byCat')
+        return this.$store.getters.getWorksByCategorieId(idCat);
+      }
+      // return this.$store.getters.getWorks;
+    },
 
-
-  // methods: {
-  //   fetchData: function() {
-  //     // console.log('fetchData')
-  //
-  //     let idCat = this.$route.params.id
-  //     console.log(typeof(idCat))
-  //     console.log(idCat)
-  //
-  //     if(typeof idCat === 'undefined'){
-  //       console.log('is')
-  //       return this.$store.getters.getWorks()
-  //     }else{
-  //       console.log('isnt')
-  //       this.getWorksByCategorie()
-  //     }
-  //   },
-
-    // getAllWorks: function() {
-    //   console.log('getAllWorks');
-    //   this.error = this.works = null
-    //   this.loading = true
-    //   axios.get('api/works/')
-    //        .then( response => {
-    //           console.log(response)
-    //           this.works = response.data
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //     this.errored = error.toString()
-    //   })
-    //   .finally(() => this.loading = false)
-    // },
-
-    // getWorksByCategorie: function() {
-    //   console.log('getWorksByCategorie');
-    //   this.error = this.works = null
-    //   this.loading = true
-    //   let idCat = this.$route.params.id
-    //   axios.get('api/works/categorie/' + idCat)
-    //        .then( response => {
-    //           console.log(response)
-    //           this.works = response.data
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //     this.errored = error.toString()
-    //   })
-    //   .finally(() => this.loading = false)
-    // }
-  // }
+  }
 }
 </script>
