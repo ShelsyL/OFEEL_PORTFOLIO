@@ -4,7 +4,8 @@ let state = {
     work: [],
     works: [],
     categories: [],
-    workcomments: []
+    workcomments: [],
+    tags: []
 }
 
 export default state;

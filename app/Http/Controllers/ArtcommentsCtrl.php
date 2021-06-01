@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Articles extends Controller
-{
+class ArtcommentsCtrl extends Controller {
     //
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categorie;
 
-class Categories extends Controller {
+class CategoriesCtrl extends Controller {
 
 /**
  * AFFICHAGES DES CATEGORIES

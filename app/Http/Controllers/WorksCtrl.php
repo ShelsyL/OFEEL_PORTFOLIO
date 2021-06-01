@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Work;
-use App\Models\Categorie;
+// use App\Models\Categorie;
+// use App\Models\Tag;
 
-class Works extends Controller {
+class WorksCtrl extends Controller {
 
   public function index() {
 
@@ -14,13 +15,16 @@ class Works extends Controller {
     // $works = Work::all();
 
     // tout les work + ce que retourne la fonction "getCategorieIdsAttribute"
-    $works = Work::get()->append('categorie_ids');
+     $works = Work::get()->append('categorie_ids')->append('tag_ids');
+     // $works = Work::get()->append('categories');
+
 
     // Tous les work + relation "categories"
     // $works = Work::with('categories')->get();
 
     // Tous les work + relation "has_categories"
     // $works = Work::with('has_categories')->get();;
+    // $works = Work::with('has_tags')->get();
 
     return response()->json($works);
   }
@@ -40,11 +44,12 @@ class Works extends Controller {
   }
 
 
-  public function worksByCategorieId ($id) {
-    $categorie = Categorie::findOrFail($id); // recupere categorie par id
-    $works = $categorie->works; // recupere les works lie a cette categorie (belongto)
-    return response()->json($works); //retourne le resulta en json
-  }
+  // public function worksByCategorieId ($id) {
+  //   $categorie = Categorie::findOrFail($id); // recupere categorie par id
+  //   $works = $categorie->works; // recupere les works lie a cette categorie (belongto)
+  //   return response()->json($works); //retourne le resulta en json
+  // }
+  //
 
 
 }

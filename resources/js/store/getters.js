@@ -69,6 +69,17 @@ let getters = {
     }
   },
 
+
+  /**
+   * TAGS
+   */
+  getTags (state) {
+    let tags = state.tags;
+    console.log('getTags');
+    console.log(tags);
+    return tags;
+  }
+
 };
 
 export default getters;

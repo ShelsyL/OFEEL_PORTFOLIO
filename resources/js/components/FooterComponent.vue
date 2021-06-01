@@ -4,7 +4,7 @@
       <section class="dark-wrapper">
           <div class="section-inner">
               <div class="container">
-                  <div class="row"> 
+                  <div class="row">
 
                   <!-- GLOBAL COVERAGE  -->
                       <div class="col-md-4">
@@ -45,10 +45,11 @@
                       <div class="col-md-4">
                           <div class="widget">
                               <h4 class="widget-title">Popular Tags</h4>
-                              <div class="tagcloud">
-                                  <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Local</a>
-                                  <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Business</a>
-                                  <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Media</a>
+
+                              <div class="tagcloud" v-for="tag in tags" :key="tag.id">
+
+                                  <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">{{ tag.name }}</a>
+                                  <!-- <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Media</a>
                                   <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Photogtraphy</a>
                                   <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Aid</a>
                                   <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Fashion</a>
@@ -57,7 +58,7 @@
                                   <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Global Affairs</a>
                                   <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Music</a>
                                   <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Downloads</a>
-                                  <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">MP3</a>
+                                  <a href="#" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">MP3</a> -->
                               </div>
                           </div>
                       </div>
@@ -105,6 +106,14 @@
 
 
 <script>
-    export default {
+export default {
+  computed: {
+    tags () {
+      let tags = this.$store.getters.getTags;
+      console.log("COucouTags")
+      return tags;
     }
+
+  },
+}
 </script>

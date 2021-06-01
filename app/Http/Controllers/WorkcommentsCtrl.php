@@ -8,7 +8,7 @@ use App\Models\Workcomment;
 use App\Models\Work;
 use App\Mail\WorkCommented;
 
-class Workcomments extends Controller {
+class WorkcommentsCtrl extends Controller {
 
   /**
    * AFFICHAGES DES COMMENTAIRES DU WORK

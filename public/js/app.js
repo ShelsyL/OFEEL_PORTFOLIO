@@ -1951,7 +1951,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  computed: {
+    tags: function tags() {
+      var tags = this.$store.getters.getTags;
+      console.log("COucouTags");
+      return tags;
+    }
+  }
+});
 
 /***/ }),
 
@@ -2470,6 +2479,7 @@ var app = new Vue({
   created: function created() {
     this.$store.dispatch('setWorks');
     this.$store.dispatch('setCategories');
+    this.$store.dispatch('setTags');
   }
 });
 
@@ -2641,6 +2651,18 @@ var actions = {
     })["catch"](function (err) {
       console.log(err);
     });
+  },
+
+  /**
+   * TAGS
+   * @param {[type]} commit [description]
+   */
+  setTags: function setTags(_ref6) {
+    var commit = _ref6.commit;
+    console.log("action setTags");
+    axios.get('api/tags').then(function (reponsePHP) {
+      return commit('SET_TAGS', reponsePHP.data);
+    });
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actions); // https://laravel.com/docs/8.x/controllers#basic-controllersponsePHP.data)));
@@ -2722,6 +2744,16 @@ var getters = {
       console.log(comments);
       return comments;
     };
+  },
+
+  /**
+   * TAGS
+   */
+  getTags: function getTags(state) {
+    var tags = state.tags;
+    console.log('getTags');
+    console.log(tags);
+    return tags;
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getters);
@@ -2795,6 +2827,11 @@ var mutations = {
     console.log('SET_WORKCOMMENTS');
     console.log(data);
     state.workcomments = data;
+  },
+  SET_TAGS: function SET_TAGS(state, data) {
+    console.log('SET_TAGS');
+    console.log(data);
+    state.tags = data;
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mutations);
@@ -2817,7 +2854,8 @@ var state = {
   work: [],
   works: [],
   categories: [],
-  workcomments: []
+  workcomments: [],
+  tags: []
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (state);
 
@@ -38772,13 +38810,42 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(4)
+              _c("div", { staticClass: "col-md-4" }, [
+                _c(
+                  "div",
+                  { staticClass: "widget" },
+                  [
+                    _c("h4", { staticClass: "widget-title" }, [
+                      _vm._v("Popular Tags")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.tags, function(tag) {
+                      return _c(
+                        "div",
+                        { key: tag.id, staticClass: "tagcloud" },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "tag-link btn btn-theme btn-white btn-xs smoothie",
+                              attrs: { href: "#", title: "3 topics" }
+                            },
+                            [_vm._v(_vm._s(tag.name))]
+                          )
+                        ]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ])
             ])
           ])
         ])
       ]),
       _vm._v(" "),
-      _vm._m(5)
+      _vm._m(4)
     ]
   )
 }
@@ -38833,126 +38900,6 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("small", { staticClass: "muted" }, [_vm._v("Posted 14 April 2015")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "widget" }, [
-        _c("h4", { staticClass: "widget-title" }, [_vm._v("Popular Tags")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "tagcloud" }, [
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Local")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Business")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Media")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Photogtraphy")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Aid")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Fashion")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("News")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Cars")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Global Affairs")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Music")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("Downloads")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "tag-link btn btn-theme btn-white btn-xs smoothie",
-              attrs: { href: "#", title: "3 topics" }
-            },
-            [_vm._v("MP3")]
-          )
-        ])
-      ])
     ])
   },
   function() {

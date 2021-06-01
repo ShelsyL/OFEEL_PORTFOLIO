@@ -63,7 +63,18 @@ let actions = {
               }
           })
           .catch(err => {console.log(err)})
-   }
+   },
+
+
+   /**
+    * TAGS
+    * @param {[type]} commit [description]
+    */
+    setTags ({commit}) {
+      console.log("action setTags");
+      axios.get('api/tags')
+           .then(reponsePHP => (commit ('SET_TAGS', reponsePHP.data)));
+    },
 
 };
 

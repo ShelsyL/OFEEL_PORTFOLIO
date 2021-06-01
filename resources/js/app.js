@@ -45,5 +45,6 @@ const app = new Vue({
     created () {
       this.$store.dispatch('setWorks');
       this.$store.dispatch('setCategories');
+      this.$store.dispatch('setTags');
     }
 });

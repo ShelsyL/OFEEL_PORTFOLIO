@@ -30,6 +30,13 @@ let mutations = {
 },
 
 
+SET_TAGS (state, data) {
+  console.log('SET_TAGS');
+  console.log(data);
+  state.tags = data;
+},
+
+
 };
 
 export default mutations;
