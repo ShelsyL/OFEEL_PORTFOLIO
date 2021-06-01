@@ -2084,6 +2084,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'categories-work',
   computed: {
@@ -2279,11 +2280,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {// works: null,
+    return {
+      moreWorks: 6 // works: null,
       // loading: false,
       // error: null
+
     };
   },
   watch: {// appeler encore la méthode si la route change
@@ -2293,9 +2304,14 @@ __webpack_require__.r(__webpack_exports__);
     works: function works() {
       var idCat = this.$route.params.id;
 
-      if (typeof idCat === 'undefined' || idCat === 1) {
+      if (typeof idCat === 'undefined') {
         console.log('all');
-        return this.$store.getters.getWorks;
+
+        var works = _.orderBy(this.$store.getters.getWorks.slice(0, this.moreWorks), 'created_at', 'asc');
+
+        console.log("Coucou works");
+        console.log(works);
+        return works;
       } else {
         console.log('byCat');
         return this.$store.getters.getWorksByCategorieId(idCat);
@@ -39153,37 +39169,56 @@ var render = function() {
         _c(
           "ul",
           { staticClass: "portfolio-filter mb30 list-inline wow" },
-          _vm._l(_vm.categories, function(categorie) {
-            return _c(
+          [
+            _c(
               "li",
-              { key: categorie.id },
               [
-                _c(
-                  "router-link",
-                  {
-                    attrs: {
-                      to: {
-                        name: "categories.show",
-                        params: { id: categorie.id }
-                      }
-                    }
-                  },
-                  [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { href: "#", "data-filter": "*" }
-                      },
-                      [_vm._v(_vm._s(categorie.name))]
-                    )
-                  ]
-                )
+                _c("router-link", { attrs: { to: { name: "work.index" } } }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { href: "#", "data-filter": "*" }
+                    },
+                    [_vm._v("All")]
+                  )
+                ])
               ],
               1
-            )
-          }),
-          0
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.categories, function(categorie) {
+              return _c(
+                "li",
+                { key: categorie.id },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "categories.show",
+                          params: { id: categorie.id }
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { href: "#", "data-filter": "*" }
+                        },
+                        [_vm._v(_vm._s(categorie.name))]
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            })
+          ],
+          2
         )
       ])
     ])
@@ -39508,75 +39543,102 @@ var render = function() {
                     staticClass:
                       "portfolio-items nopadding-lr isotope list-unstyled"
                   },
-                  _vm._l(this.works, function(work) {
-                    return _c(
-                      "li",
-                      {
-                        key: work.id,
-                        staticClass:
-                          "col-sm-4 col-xs-12 portfolio-item nopadding-lr apps isotope-item"
-                      },
-                      [
-                        _c("div", { staticClass: "hover-item" }, [
-                          _c("img", {
-                            staticClass: "img-responsive smoothie",
-                            attrs: {
-                              src: "assets/img/portfolio/" + work.image,
-                              alt: "work.title"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("div", {
-                            staticClass: "overlay-item-caption smoothie"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "hover-item-caption smoothie" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "vertical-center smoothie" },
-                                [
-                                  _vm._m(0, true),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-primary lb-link smoothie",
-                                      attrs: {
-                                        href:
-                                          "assets/img/portfolio/" + work.image,
-                                        title: "View Gallery"
-                                      }
-                                    },
-                                    [_vm._v("Zoom")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass: "smoothie btn btn-primary",
-                                      attrs: {
-                                        to: {
-                                          name: "works.show",
-                                          params: { id: work.id }
+                  [
+                    _vm._l(this.works, function(work) {
+                      return _c(
+                        "li",
+                        {
+                          key: work.id,
+                          staticClass:
+                            "col-sm-4 col-xs-12 portfolio-item nopadding-lr apps isotope-item"
+                        },
+                        [
+                          _c("div", { staticClass: "hover-item" }, [
+                            _c("img", {
+                              staticClass: "img-responsive smoothie",
+                              attrs: {
+                                src: "assets/img/portfolio/" + work.image,
+                                alt: "work.title"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", {
+                              staticClass: "overlay-item-caption smoothie"
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "hover-item-caption smoothie" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "vertical-center smoothie" },
+                                  [
+                                    _vm._m(0, true),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "btn btn-primary lb-link smoothie",
+                                        attrs: {
+                                          href:
+                                            "assets/img/portfolio/" +
+                                            work.image,
+                                          title: "View Gallery"
                                         }
-                                      }
-                                    },
-                                    [_vm._v("View")]
-                                  )
-                                ],
-                                1
-                              )
-                            ]
-                          )
-                        ])
-                      ]
-                    )
-                  }),
-                  0
+                                      },
+                                      [_vm._v("Zoom")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "smoothie btn btn-primary",
+                                        attrs: {
+                                          to: {
+                                            name: "works.show",
+                                            params: { id: work.id }
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("View")]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "buttons" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-gray",
+                            staticStyle: {
+                              padding: "20px",
+                              "border-radius": "10px",
+                              "margin-top": "60px",
+                              "margin-left": "50%"
+                            },
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.moreWorks += 3
+                              }
+                            }
+                          },
+                          [_vm._v("More")]
+                        )
+                      ])
+                    ])
+                  ],
+                  2
                 )
               ])
             ])
@@ -39594,12 +39656,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "smoothie mb30" }, [
-      _c("a", {
-        attrs: {
-          href: "single-portfolio-fullscreen.html",
-          title: "view project"
-        }
-      })
+      _c(
+        "a",
+        {
+          attrs: {
+            href: "single-portfolio-fullscreen.html",
+            title: "view project"
+          }
+        },
+        [_vm._v("Fullscreen Gallery")]
+      )
     ])
   }
 ]

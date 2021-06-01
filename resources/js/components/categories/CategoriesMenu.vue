@@ -10,7 +10,12 @@
       <!-- CATEGORIES DES WORKS -->
       <div class="col-md-6 text-right">
         <ul class="portfolio-filter mb30 list-inline wow" >
-          <!-- <li><a class="btn btn-primary" href="#" data-filter="*">All</a></li> -->
+
+          <li>
+            <router-link :to="{name: 'work.index'}">
+              <a class="btn btn-primary" href="#" data-filter="*">All</a>
+            </router-link>
+          </li>
 
           <li v-for="categorie in categories" :key="categorie.id">
             <router-link :to="{name: 'categories.show', params: { id: categorie.id }}">
@@ -18,10 +23,6 @@
             </router-link>
           </li>
 
-          <!-- <li><a class="btn btn-primary active" href="#" data-filter=".apps">Apps</a></li>
-          <li><a class="btn btn-primary" href="#" data-filter=".design">Design</a></li>
-          <li><a class="btn btn-primary" href="#" data-filter=".photography">Photography</a></li>
-          <li><a class="btn btn-primary" href="#" data-filter=".video">Test</a></li> -->
         </ul>
       </div>
     </div>
