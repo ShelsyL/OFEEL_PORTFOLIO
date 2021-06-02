@@ -12,6 +12,7 @@
 
         <div class="container">
          id =   {{this.$route.params.id}}
+
         </div>
 
           <!-- LISTE DES WORKS -->
@@ -24,7 +25,7 @@
                               <div class="overlay-item-caption smoothie"></div>
                               <div class="hover-item-caption smoothie">
                                   <div class="vertical-center smoothie">
-                                      <h3 class="smoothie mb30"><a href="single-portfolio-fullscreen.html" title="view project">Fullscreen Gallery</a></h3>
+                                      <h3 class="smoothie mb30"><a href="single-portfolio-fullscreen.html" title="view project"></a></h3>
                                       <a :href="'assets/img/portfolio/' + work.image" title="View Gallery" class="btn btn-primary lb-link smoothie">Zoom</a>
                                       <router-link class="smoothie btn btn-primary" :to="{name: 'works.show', params: { id: work.id}}">View</router-link>
                                   </div>
@@ -52,9 +53,6 @@ export default {
   data () {
     return {
       moreWorks: 6
-      // works: null,
-      // loading: false,
-      // error: null
     }
   },
 
@@ -65,19 +63,33 @@ export default {
 
   computed: {
     works() {
-      let idCat = this.$route.params.id;
-      if(typeof idCat === 'undefined') {
+
+    let id = this.$route.params.id;
+    let routeName = this.$route.name
+    console.log(this.$route);
+    console.log(this.$route.name);
+
+      if(routeName == "categories.show") {
+        console.log("test categorie")
+        if(typeof id !== 'undefined') {
+            console.log('byCat')
+            return this.$store.getters.getWorksByCategorieId(id);
+        }
+      }
+      else if (routeName == "tags.show") {
+        console.log("test Tag")
+            if(typeof id !== 'undefined') {
+            return this.$store.getters.getWorksByTagId(id);
+          }
+      }
+      else {
         console.log('all')
         let works =  _.orderBy(this.$store.getters.getWorks.slice(0, this.moreWorks), 'created_at', 'asc');
         console.log("Coucou works")
         console.log(works)
         return works;
+
       }
-      else {
-        console.log('byCat')
-        return this.$store.getters.getWorksByCategorieId(idCat);
-      }
-      // return this.$store.getters.getWorks;
     },
 
   }

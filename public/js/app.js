@@ -1943,20 +1943,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {
     tags: function tags() {
       var tags = this.$store.getters.getTags;
-      console.log("COucouTags");
+      console.log("CoucouTags");
       return tags;
     }
   }
@@ -2297,13 +2288,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      moreWorks: 6 // works: null,
-      // loading: false,
-      // error: null
-
+      moreWorks: 6
     };
   },
   watch: {// appeler encore la méthode si la route change
@@ -2311,9 +2300,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     works: function works() {
-      var idCat = this.$route.params.id;
+      var id = this.$route.params.id;
+      var routeName = this.$route.name;
+      console.log(this.$route);
+      console.log(this.$route.name);
 
-      if (typeof idCat === 'undefined') {
+      if (routeName == "categories.show") {
+        console.log("test categorie");
+
+        if (typeof id !== 'undefined') {
+          console.log('byCat');
+          return this.$store.getters.getWorksByCategorieId(id);
+        }
+      } else if (routeName == "tags.show") {
+        console.log("test Tag");
+
+        if (typeof id !== 'undefined') {
+          return this.$store.getters.getWorksByTagId(id);
+        }
+      } else {
         console.log('all');
 
         var works = _.orderBy(this.$store.getters.getWorks.slice(0, this.moreWorks), 'created_at', 'asc');
@@ -2321,11 +2326,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log("Coucou works");
         console.log(works);
         return works;
-      } else {
-        console.log('byCat');
-        return this.$store.getters.getWorksByCategorieId(idCat);
-      } // return this.$store.getters.getWorks;
-
+      }
     }
   }
 });
@@ -2343,6 +2344,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2565,6 +2579,10 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
     path: '/works/categories/:id',
     name: 'categories.show',
     component: _components_works_Index__WEBPACK_IMPORTED_MODULE_0__.default
+  }, {
+    path: '/works/tags/:id',
+    name: 'tags.show',
+    component: _components_works_Index__WEBPACK_IMPORTED_MODULE_0__.default
   }]
 }));
 
@@ -2663,7 +2681,15 @@ var actions = {
     axios.get('api/tags').then(function (reponsePHP) {
       return commit('SET_TAGS', reponsePHP.data);
     });
-  }
+  } // /**
+  //  * TAGS PAR ID DU WORK
+  //  */
+  //  setTagsByWorkId ({commit}, id) {
+  //    console.log("action TagsByWorkId : id=" + id);
+  //    axios.get('api/work/'+ id + 'tags')
+  //         .then(reponsePHP => (commit('SET_TAGS', reponsePHP.data)));
+  //  },
+
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actions); // https://laravel.com/docs/8.x/controllers#basic-controllersponsePHP.data)));
 
@@ -2754,6 +2780,22 @@ var getters = {
     console.log('getTags');
     console.log(tags);
     return tags;
+  },
+
+  /**
+  * WORKS BY TAG ID
+  * @param  {[type]} state [description]
+  * @return {[type]}       [description]
+  */
+  getWorksByTagId: function getWorksByTagId(state) {
+    return function (id) {
+      console.log('getWorksByTagId, id=' + id);
+      var works = state.works.filter(function (work) {
+        return work.tag_ids.includes(id);
+      });
+      console.log(works);
+      return works;
+    };
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getters);
@@ -38822,18 +38864,33 @@ var render = function() {
                     _vm._l(_vm.tags, function(tag) {
                       return _c(
                         "div",
-                        { key: tag.id, staticClass: "tagcloud" },
+                        { key: tag.id },
                         [
                           _c(
-                            "a",
+                            "router-link",
                             {
-                              staticClass:
-                                "tag-link btn btn-theme btn-white btn-xs smoothie",
-                              attrs: { href: "#", title: "3 topics" }
+                              staticClass: "tagcloud",
+                              attrs: {
+                                to: {
+                                  name: "tags.show",
+                                  params: { id: tag.id }
+                                }
+                              }
                             },
-                            [_vm._v(_vm._s(tag.name))]
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "tag-link btn btn-theme btn-white btn-xs smoothie",
+                                  attrs: { href: "#", title: "3 topics" }
+                                },
+                                [_vm._v(_vm._s(tag.name))]
+                              )
+                            ]
                           )
-                        ]
+                        ],
+                        1
                       )
                     })
                   ],
@@ -39478,7 +39535,7 @@ var render = function() {
               _vm._v(
                 "\r\n         id =   " +
                   _vm._s(this.$route.params.id) +
-                  "\r\n        "
+                  "\r\n\r\n        "
               )
             ]),
             _vm._v(" "),
@@ -39603,16 +39660,12 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "smoothie mb30" }, [
-      _c(
-        "a",
-        {
-          attrs: {
-            href: "single-portfolio-fullscreen.html",
-            title: "view project"
-          }
-        },
-        [_vm._v("Fullscreen Gallery")]
-      )
+      _c("a", {
+        attrs: {
+          href: "single-portfolio-fullscreen.html",
+          title: "view project"
+        }
+      })
     ])
   }
 ]
@@ -39651,19 +39704,57 @@ var render = function() {
           [
             _c("div", { staticClass: "container" }, [
               _c("div", { staticClass: "row project-item" }, [
-                _c("div", { staticClass: "col-sm-3" }, [
-                  _c("h3", [_vm._v(_vm._s(_vm.work.title))]),
-                  _vm._v(" "),
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(_vm._s(_vm.work.description) + "\n            ")
-                  ])
-                ]),
+                _c(
+                  "div",
+                  { staticClass: "col-sm-3" },
+                  [
+                    _c("h3", [_vm._v(_vm._s(_vm.work.title))]),
+                    _vm._v(" "),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v("TAGS:")]),
+                    _vm._v(" "),
+                    _vm._l(this.work.tags, function(tag) {
+                      return _c(
+                        "div",
+                        { key: tag.id },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "tags.show",
+                                  params: { id: tag.id }
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn-perso",
+                                  attrs: { href: "#" }
+                                },
+                                [_vm._v(_vm._s(tag.name))]
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("strong", [_vm._v("DESCRIPTION:")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(_vm.work.description))])
+                    ])
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9 mb60 wow" }, [
                   _c("div", { staticClass: "row" }, [
@@ -39710,15 +39801,6 @@ var staticRenderFns = [
     return _c("p", [
       _c("strong", [_vm._v("CLIENT:")]),
       _vm._v(" Jeeves Design")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("strong", [_vm._v("TAGS:")]),
-      _vm._v(" Brand Design, Graphics")
     ])
   }
 ]

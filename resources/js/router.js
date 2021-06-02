@@ -25,6 +25,11 @@ export default new Router({
      path: '/works/categories/:id',
      name: 'categories.show',
      component: WorksIndex
-    }
+   },
+   {
+    path: '/works/tags/:id',
+    name: 'tags.show',
+    component: WorksIndex
+  }
   ]
 })

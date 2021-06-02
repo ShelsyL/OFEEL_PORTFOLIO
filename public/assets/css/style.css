@@ -38,6 +38,14 @@
 
 /*-----------------------------------------------------------------------------------*/
 
+/* SURCHARGE PERSO
+/*--------------------------------*/
+/* .btn-perso {
+  padding: 2px;
+  border: 1px solid grey;
+} */
+
+
 
 /*  1 - FONT IMPORT
 /*-----------------------------------------------------------------------------------*/
@@ -1004,7 +1012,7 @@ section h3.section-subheading {
     padding: 5px 12px;
     text-transform: uppercase;
     margin: 0 1px 5px 0;
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 
 .tagcloud a:hover {
@@ -1012,6 +1020,7 @@ section h3.section-subheading {
     color: #444;
     border-color: #fff;
 }
+
 
 .widget .media-body .muted {
     display: block;
@@ -1418,7 +1427,7 @@ footer.white-wrapper .social-links li a {
 }
 
 .dark-footer-image-bg {
-    background-image: url(../img/dark-footer-bg.jpeg);
+    background-image: url(../img/bg/bg4.jpg);
     background-size: cover;
     background-position: center center;
 }

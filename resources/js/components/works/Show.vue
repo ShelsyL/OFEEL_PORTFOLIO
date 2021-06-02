@@ -12,9 +12,22 @@
               <h3>{{ work.title }}</h3>
               <p><strong>DATE:</strong> 21/01/2015</p>
               <p><strong>CLIENT:</strong> Jeeves Design</p>
-              <p><strong>TAGS:</strong> Brand Design, Graphics</p>
-              <p>{{ work.description }}
-              </p>
+
+              <!-- TAGS DU WORK -->
+              <strong>TAGS:</strong>
+              <div v-for="tag in this.work.tags" :key="tag.id">
+                <router-link :to="{name: 'tags.show', params: { id: tag.id }}">
+                  <!-- <a>- {{ tag.name }}</a> -->
+                  <a href="#" class="btn-perso">{{ tag.name }}</a>
+                </router-link>
+              </div>
+
+              <!-- DESCRIPTION DU WORK -->
+              <div>
+                <strong>DESCRIPTION:</strong>
+                <p>{{ work.description }}</p>
+              </div>
+
             </div>
 
             <div class="col-sm-9 mb60 wow">
@@ -38,9 +51,9 @@
 
     <comments-work></comments-work>
 
-      </div>
-    </section>
   </div>
+</section>
+</div>
 </template>
 
 
@@ -58,7 +71,7 @@ export default {
   computed: {
       work(){
         return this.$store.getters.getWork;
-      }
+      },
   },
 
   beforeCreate() {

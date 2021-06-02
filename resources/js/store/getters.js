@@ -78,7 +78,22 @@ let getters = {
     console.log('getTags');
     console.log(tags);
     return tags;
-  }
+  },
+
+
+  /**
+  * WORKS BY TAG ID
+  * @param  {[type]} state [description]
+  * @return {[type]}       [description]
+  */
+  getWorksByTagId (state) {
+    return function (id) {
+      console.log('getWorksByTagId, id=' + id);
+      let works = state.works.filter(work => work.tag_ids.includes(id));
+      console.log(works);
+      return works;
+    }
+  },
 
 };
 

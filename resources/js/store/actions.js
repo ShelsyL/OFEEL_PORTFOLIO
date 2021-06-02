@@ -76,6 +76,15 @@ let actions = {
            .then(reponsePHP => (commit ('SET_TAGS', reponsePHP.data)));
     },
 
+    // /**
+    //  * TAGS PAR ID DU WORK
+    //  */
+    //  setTagsByWorkId ({commit}, id) {
+    //    console.log("action TagsByWorkId : id=" + id);
+    //    axios.get('api/work/'+ id + 'tags')
+    //         .then(reponsePHP => (commit('SET_TAGS', reponsePHP.data)));
+    //  },
+
 };
 
 export default actions;
