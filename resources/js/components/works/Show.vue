@@ -10,29 +10,35 @@
 
             <div class="col-sm-3">
               <h3>{{ work.title }}</h3>
-              <p><strong>DATE:</strong> 21/01/2015</p>
-              <p><strong>CLIENT:</strong> Jeeves Design</p>
+              <!-- <p><strong>DATE:</strong> 21/01/2015</p>
+              <p><strong>CLIENT:</strong> Jeeves Design</p> -->
 
-              <!-- TAGS DU WORK -->
-              <strong>TAGS:</strong>
-              <div v-for="tag in this.work.tags" :key="tag.id">
-                <router-link :to="{name: 'tags.show', params: { id: tag.id }}">
-                  <!-- <a>- {{ tag.name }}</a> -->
-                  <a href="#" class="btn-perso">{{ tag.name }}</a>
-                </router-link>
-              </div>
+              <hr>
 
               <!-- DESCRIPTION DU WORK -->
-              <div>
-                <strong>DESCRIPTION:</strong>
-                <p>{{ work.description }}</p>
-              </div>
+              <p><strong>DESCRIPTION:</strong>
+                <div>{{ work.description }}
+                </div>
+              </p>
 
+              <hr>
+
+              <!-- TAGS DU WORK -->
+              <p><strong>TAGS:</strong>
+                <div v-for="tag in this.work.tags" :key="tag.id">
+                  <router-link :to="{name: 'tags.show', params: { id: tag.id }}">
+                    <!-- <a>- {{ tag.name }}</a> -->
+                    <a href="#" class="btn-perso">{{ tag.name }}</a>
+                  </router-link>
+                </div>
+              </p>
             </div>
 
             <div class="col-sm-9 mb60 wow">
               <div class="row">
                 <div class="col-xs-12 single-post-content">
+
+                  <!-- IMAGE DU WORK -->
                   <div class="gap">
                     <img :src="'assets/img/portfolio/' + work.image" class="img-responsive " alt="title">
                   </div>
@@ -69,9 +75,9 @@ export default {
   },
 
   computed: {
-      work(){
-        return this.$store.getters.getWork;
-      },
+    work(){
+      return this.$store.getters.getWork;
+    },
   },
 
   beforeCreate() {
@@ -87,11 +93,11 @@ export default {
 
   watch: {
     // appeler encore la méthode si la route change
-     '$route': 'fetchData_work'
+    '$route': 'fetchData_work'
   },
 
   methods: {
-      fetchData_work: function(){
+    fetchData_work: function(){
       console.log("fetchData_work")
       let id = this.$route.params.id;
       this.$store.dispatch('setWork', id);

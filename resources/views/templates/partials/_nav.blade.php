@@ -45,7 +45,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand smoothie logo logo-light" href="index.html"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
+            <a class="navbar-brand smoothie logo logo-light" href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
             <a class="navbar-brand smoothie logo logo-dark" href="index.html"><img src="{{ asset('assets/img/logo_reverse.png') }}" alt="logo"></a>
         </div>
 
@@ -53,7 +53,7 @@
         <div class="collapse navbar-collapse" id="main-navigation">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                  <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a></li>
+                  <li><a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('home') }}">Home</a></li>
                   <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">About US</a></li>
                   <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio</a></li>
                   {{-- <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Articles</a></li> --}}

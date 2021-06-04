@@ -2403,6 +2403,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -39710,12 +39716,20 @@ var render = function() {
                   [
                     _c("h3", [_vm._v(_vm._s(_vm.work.title))]),
                     _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
                     _vm._m(0),
+                    _c("div", [
+                      _vm._v(
+                        _vm._s(_vm.work.description) + "\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p"),
+                    _vm._v(" "),
+                    _c("hr"),
                     _vm._v(" "),
                     _vm._m(1),
-                    _vm._v(" "),
-                    _c("strong", [_vm._v("TAGS:")]),
-                    _vm._v(" "),
                     _vm._l(this.work.tags, function(tag) {
                       return _c(
                         "div",
@@ -39747,11 +39761,7 @@ var render = function() {
                       )
                     }),
                     _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("DESCRIPTION:")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(_vm.work.description))])
-                    ])
+                    _c("p")
                   ],
                   2
                 ),
@@ -39792,16 +39802,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [_c("strong", [_vm._v("DATE:")]), _vm._v(" 21/01/2015")])
+    return _c("p", [_c("strong", [_vm._v("DESCRIPTION:")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("strong", [_vm._v("CLIENT:")]),
-      _vm._v(" Jeeves Design")
-    ])
+    return _c("p", [_c("strong", [_vm._v("TAGS:")])])
   }
 ]
 render._withStripped = true
