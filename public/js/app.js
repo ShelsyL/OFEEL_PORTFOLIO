@@ -1946,8 +1946,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {
     tags: function tags() {
-      var tags = this.$store.getters.getTags;
-      console.log("CoucouTags");
+      var tags = this.$store.getters.getTags; // console.log("CoucouTags")
+
       return tags;
     }
   }
@@ -1995,8 +1995,7 @@ __webpack_require__.r(__webpack_exports__);
       jQuery(".rotate").textrotator({
         animation: "dissolve",
         separator: ",",
-        speed: 2500 // How many milliseconds until the next word show.
-
+        speed: 2500
       });
     });
   }
@@ -2193,7 +2192,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    console.log("CommentsWorks/Show - created");
     this.getComments();
   },
   watch: {
@@ -2284,47 +2282,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       moreWorks: 6
     };
   },
-  watch: {// appeler encore la méthode si la route change
-    // '$route': 'fetchData'
-  },
+  watch: {},
   computed: {
     works: function works() {
       var id = this.$route.params.id;
       var routeName = this.$route.name;
-      console.log(this.$route);
-      console.log(this.$route.name);
 
       if (routeName == "categories.show") {
-        console.log("test categorie");
-
         if (typeof id !== 'undefined') {
-          console.log('byCat');
           return this.$store.getters.getWorksByCategorieId(id);
         }
       } else if (routeName == "tags.show") {
-        console.log("test Tag");
-
         if (typeof id !== 'undefined') {
           return this.$store.getters.getWorksByTagId(id);
         }
       } else {
-        console.log('all');
-
         var works = _.orderBy(this.$store.getters.getWorks.slice(0, this.moreWorks), 'created_at', 'asc');
 
-        console.log("Coucou works");
-        console.log(works);
         return works;
       }
     }
@@ -2409,25 +2389,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
-      //work : null,
-      loading: false,
-      error: null
-    };
+    return {};
   },
   computed: {
     work: function work() {
       return this.$store.getters.getWork;
     }
   },
-  beforeCreate: function beforeCreate() {},
   created: function created() {
-    console.log("works/Show - created");
-    this.fetchData_work(); //let id = this.$route.params.id
-    //this.$store.dispatch('setCurrentWork', id);
-    // this.fetchData_work() // recuperer les données data
+    // recuperer les données data
+    this.fetchData_work();
   },
   watch: {
     // appeler encore la méthode si la route change
@@ -2435,7 +2409,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchData_work: function fetchData_work() {
-      console.log("fetchData_work");
       var id = this.$route.params.id;
       this.$store.dispatch('setWork', id);
     }
@@ -2457,22 +2430,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/index.js */ "./resources/js/store/index.js");
 /* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router.js */ "./resources/js/router.js");
 /**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+* First we will load all of this project's JavaScript dependencies which
+* includes Vue and other libraries. It is a great starting point when
+* building robust, powerful web applications using Vue and Laravel.
+*/
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
 
 __webpack_require__.g.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 /**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+* The following block of code may be used to automatically register your
+* Vue components. It will recursively scan this directory for the Vue
+* components and automatically register them with their "basename".
+*
+* Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+*/
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 // Vue.component('works', require('./components/Works.vue').default);
@@ -2483,20 +2456,20 @@ Vue.component('footer-component', __webpack_require__(/*! ./components/FooterCom
 Vue.component('categories-menu', __webpack_require__(/*! ./components/categories/CategoriesMenu.vue */ "./resources/js/components/categories/CategoriesMenu.vue").default);
 Vue.component('comments-work', __webpack_require__(/*! ./components/works/CommentsWork.vue */ "./resources/js/components/works/CommentsWork.vue").default);
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+* Next, we will create a fresh Vue application instance and attach it to
+* the page. Then, you may begin adding components to this application
+* or customize the JavaScript scaffolding to fit your unique needs.
+*/
 
- // j'importe le store
 
 
 var app = new Vue({
   el: '#app',
   router: _router_js__WEBPACK_IMPORTED_MODULE_2__.default,
   store: _store_index_js__WEBPACK_IMPORTED_MODULE_1__.default,
-  // Je lui dis que j'utilise le store dans mon instance de vue
+  // Utilisation du store dans mon instance de vue
   created: function created() {
+    // On lance les actions
     this.$store.dispatch('setWorks');
     this.$store.dispatch('setCategories');
     this.$store.dispatch('setTags');
@@ -2607,97 +2580,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // ./resources/js/store/actions.js
 var actions = {
-  /**
-   * WORKS
-   * @param {[type]} commit [description]
-   */
+  // WORKS
   setWorks: function setWorks(_ref) {
     var commit = _ref.commit;
-    console.log("action setWorks");
     axios.get('api/works').then(function (reponsePHP) {
       return commit('SET_WORKS', reponsePHP.data);
     });
   },
-
-  /**
-   * CATEGORIES
-   * @param {[type]} commit [description]
-   */
-  setCategories: function setCategories(_ref2) {
+  // WORK
+  setWork: function setWork(_ref2, id) {
     var commit = _ref2.commit;
-    console.log("action setCategories");
-    axios.get('api/categories').then(function (reponsePHP) {
-      return commit('SET_CATEGORIES', reponsePHP.data);
-    });
-  },
-
-  /**
-   * WORK
-   * @param {[type]} commit [description]
-   */
-  setWork: function setWork(_ref3, id) {
-    var commit = _ref3.commit;
-    console.log("action setWork : id=" + id);
     axios.get('api/works/' + id).then(function (reponsePHP) {
       return commit('SET_WORK', reponsePHP.data);
     });
   },
-
-  /**
-   * COMMENTS PAR ID DU WORK
-   */
-  setWorkcomments: function setWorkcomments(_ref4, id) {
+  // CATEGORIES
+  setCategories: function setCategories(_ref3) {
+    var commit = _ref3.commit;
+    axios.get('api/categories').then(function (reponsePHP) {
+      return commit('SET_CATEGORIES', reponsePHP.data);
+    });
+  },
+  // TAGS
+  setTags: function setTags(_ref4) {
     var commit = _ref4.commit;
-    console.log("action setWorkcomments : id=" + id);
+    axios.get('api/tags').then(function (reponsePHP) {
+      return commit('SET_TAGS', reponsePHP.data);
+    });
+  },
+  // COMMENTS PAR ID DU WORK
+  setWorkcomments: function setWorkcomments(_ref5, id) {
+    var commit = _ref5.commit;
     axios.get('api/workcomments/work/' + id).then(function (reponsePHP) {
       return commit('SET_WORKCOMMENTS', reponsePHP.data);
     });
   },
-
-  /**
-   * CREATION DU COMMENTS
-   */
-  createWorkcomment: function createWorkcomment(_ref5, comment) {
+  // CREATION DU COMMENTS
+  createWorkcomment: function createWorkcomment(_ref6, comment) {
     var _this = this;
 
-    var commit = _ref5.commit;
-    console.log("action createWorkcomment :");
-    console.log(comment); // Envois le commentaire dans la liste des commentaires
-
+    var commit = _ref6.commit;
+    // Envois le commentaire dans la liste des commentaires
     axios.post('api/workcomments', comment).then(function (reponsePHP) {
-      console.log(reponsePHP);
-
       if (reponsePHP.status == 200) {
-        console.log("sucess"); // Recuperation de tous les commentaires du work
-
+        // Recuperation de tous les commentaires du work
         _this.dispatch('setWorkcomments', comment.work_id);
       }
     })["catch"](function (err) {
       console.log(err);
     });
-  },
-
-  /**
-   * TAGS
-   * @param {[type]} commit [description]
-   */
-  setTags: function setTags(_ref6) {
-    var commit = _ref6.commit;
-    console.log("action setTags");
-    axios.get('api/tags').then(function (reponsePHP) {
-      return commit('SET_TAGS', reponsePHP.data);
-    });
-  } // /**
-  //  * TAGS PAR ID DU WORK
-  //  */
-  //  setTagsByWorkId ({commit}, id) {
-  //    console.log("action TagsByWorkId : id=" + id);
-  //    axios.get('api/work/'+ id + 'tags')
-  //         .then(reponsePHP => (commit('SET_TAGS', reponsePHP.data)));
-  //  },
-
+  }
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actions); // https://laravel.com/docs/8.x/controllers#basic-controllersponsePHP.data)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actions); // DOCS : https://laravel.com/docs/8.x/controllers#basic-controllersponsePHP.data)));
 
 /***/ }),
 
@@ -2714,97 +2648,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // ./resources/js/store/getters.js
 var getters = {
-  /**
-  * ALL WORKS
-  * @param  {[type]} state [description]
-  * @return works
-  */
+  // ALL WORKS
   getWorks: function getWorks(state) {
     var works = state.works;
-    console.log('getWorks');
-    console.log(works);
     return works;
   },
-
-  /**
-   * WORK
-   * @param  {[type]} state [description]
-   * @return {[type]}       [description]
-   */
+  // WORK
   getWork: function getWork(state) {
     var work = state.work;
-    console.log('getWork');
-    console.log(work);
     return work;
   },
-
-  /**
-  * ALL CATEGORIES
-  * @param  {[type]} state [description]
-  * @return {[type]}       [description]
-  */
+  // ALL CATEGORIES
   getCategories: function getCategories(state) {
     var categories = state.categories;
-    console.log('getCategories');
-    console.log(categories);
     return categories;
   },
-
-  /**
-  * WORKS BY CATEGORIE ID
-  * @param  {[type]} state [description]
-  * @return {[type]}       [description]
-  */
+  // WORKS BY CATEGORIE ID
   getWorksByCategorieId: function getWorksByCategorieId(state) {
     return function (id) {
-      console.log('getWorksByCategorieId, id=' + id);
       var works = state.works.filter(function (work) {
         return work.categorie_ids.includes(id);
-      });
-      console.log(works);
+      }); // includes : permet de déterminer si un tableau contient une valeur (true/false)
+
       return works;
     };
   },
-
-  /**
-   * COMMENTS
-   */
+  // COMMENTS
   getComments: function getComments(state) {
     return function (id) {
       var comments = state.workcomments;
-      console.log('getComments');
-      console.log(comments);
       return comments;
     };
   },
-
-  /**
-   * TAGS
-   */
+  // TAGS
   getTags: function getTags(state) {
     var tags = state.tags;
-    console.log('getTags');
-    console.log(tags);
     return tags;
   },
-
-  /**
-  * WORKS BY TAG ID
-  * @param  {[type]} state [description]
-  * @return {[type]}       [description]
-  */
+  // WORKS BY TAG ID
   getWorksByTagId: function getWorksByTagId(state) {
     return function (id) {
-      console.log('getWorksByTagId, id=' + id);
       var works = state.works.filter(function (work) {
         return work.tag_ids.includes(id);
       });
-      console.log(works);
       return works;
     };
   }
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getters);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getters); // Doc includes : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
 
 /***/ }),
 
@@ -2857,28 +2748,18 @@ __webpack_require__.r(__webpack_exports__);
 // ./resources/js/store/mutations.js
 var mutations = {
   SET_WORK: function SET_WORK(state, data) {
-    console.log('SET_WORK');
-    console.log(data);
     state.work = data;
   },
   SET_WORKS: function SET_WORKS(state, data) {
-    console.log('SET_WORKS');
-    console.log(data);
     state.works = data;
   },
   SET_CATEGORIES: function SET_CATEGORIES(state, data) {
-    console.log('SET_CATEGORIES');
-    console.log(data);
     state.categories = data;
   },
   SET_WORKCOMMENTS: function SET_WORKCOMMENTS(state, data) {
-    console.log('SET_WORKCOMMENTS');
-    console.log(data);
     state.workcomments = data;
   },
   SET_TAGS: function SET_TAGS(state, data) {
-    console.log('SET_TAGS');
-    console.log(data);
     state.tags = data;
   }
 };
@@ -39084,15 +38965,6 @@ var staticRenderFns = [
                     _vm._v("mes créations, mon monde, mon univers")
                   ])
                 ]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary btn-white mt30 page-scroll",
-                  attrs: { href: "#welcome", "data-wow-delay": "0.6s" }
-                },
-                [_vm._v("Find Out More")]
               )
             ]
           )
@@ -39487,7 +39359,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "mt60 mb50 single-section-title" }, [
-      _c("h3", [_vm._v("Laisser un commentaires")])
+      _c("h3", [_vm._v("Laisser un commentaire")])
     ])
   },
   function() {
@@ -39536,14 +39408,6 @@ var render = function() {
           { staticClass: "section-inner" },
           [
             _c("categories-menu"),
-            _vm._v(" "),
-            _c("div", { staticClass: "container" }, [
-              _vm._v(
-                "\r\n         id =   " +
-                  _vm._s(this.$route.params.id) +
-                  "\r\n\r\n        "
-              )
-            ]),
             _vm._v(" "),
             _c("div", { staticClass: "container" }, [
               _c("div", { staticClass: "col-md-12" }, [
@@ -39721,7 +39585,7 @@ var render = function() {
                     _vm._m(0),
                     _c("div", [
                       _vm._v(
-                        _vm._s(_vm.work.description) + "\n                "
+                        _vm._s(_vm.work.description) + "\n                  "
                       )
                     ]),
                     _vm._v(" "),

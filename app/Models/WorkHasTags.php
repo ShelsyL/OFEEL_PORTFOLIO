@@ -11,17 +11,4 @@ class WorkHasTags extends Model {
 
     protected $table = 'works_has_tags';
 
-    /**
-    * GETTER des categories du work
-    */
-    // public function works_categories() {
-    //   return $this->belongsToMany('App\Models\Categorie', 'works_has_categories');
-    // }
-
-    // /**
-    // * GETTER des categories du work
-    // */
-    // public function categories() {
-    //   return $this->belongsToMany('App\Models\Categorie', 'works_has_categories', 'work_id', 'categorie_id');
-    // }
 }

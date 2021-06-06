@@ -11,6 +11,7 @@ class Artcomment extends Model
 
     /**
     * GETTER des articles de artcomments
+    * 1:n(Inverse) - belongsTo => Appartient à
     */
     public function article(){
       return $this->belongsTo('App\Models\Article');

@@ -4,52 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Work;
-// use App\Models\Categorie;
-// use App\Models\Tag;
 
 class WorksCtrl extends Controller {
 
+/**
+ * ALL WORKS (+ ce que retourne la fonction "getCategorieIdsAttribute" et getTagIdsAttribute)
+ * @return [json]
+ */
   public function index() {
+    $works = Work::get()->append('categorie_ids')->append('tag_ids');
+      return response()->json($works);
 
-    // Tous les works
-    // $works = Work::all();
-
-    // tout les work + ce que retourne la fonction "getCategorieIdsAttribute"
-     $works = Work::get()->append('categorie_ids')->append('tag_ids');
-     // $works = Work::get()->append('categories');
-
-
-    // Tous les work + relation "categories"
-    // $works = Work::with('categories')->get();
-
-    // Tous les work + relation "has_categories"
-    // $works = Work::with('has_categories')->get();;
-    // $works = Work::with('has_tags')->get();
-
-    return response()->json($works);
+      // Tous les works
+      // $works = Work::all();
   }
 
-  // public function index() {
-  //   $works = Work::with('toto')->get();
-  //   $toto = $works[0]->toto;
-  //   $test = $toto->pluck('categorie_id');
-  //   echo $test;
-  //   return response()->json($works);
-  // }
 
+  /**
+  * SHOW (+ ce que retourne la fonction "tags" et "getCategorieIdsAttribute"  )
+  * @param  [int] $id
+  * @return json work
+  */
   public function show($id) {
-    // $work = Work::findOrFail($id)->append('categorie_ids');
     $work = Work::with('tags')->findOrFail($id)->append('categorie_ids');
-    return response()->json($work);
+      return response()->json($work);
   }
-
-
-  // public function worksByCategorieId ($id) {
-  //   $categorie = Categorie::findOrFail($id); // recupere categorie par id
-  //   $works = $categorie->works; // recupere les works lie a cette categorie (belongto)
-  //   return response()->json($works); //retourne le resulta en json
-  // }
-  //
-
-
 }
+
+
+
+// Doc append : permet d'ajouter une valeur ds le json
+// https://laravel.com/docs/8.x/eloquent-serialization#appending-values-to-json

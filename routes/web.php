@@ -18,6 +18,7 @@ Route::get('/', function () {
 })->name('home');
 
 
+// Voyager
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

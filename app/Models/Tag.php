@@ -11,6 +11,7 @@ class Tag extends Model
 
     /**
     * GETTER des works du tag.
+    * n:n - belongsToMany => Appartenir à plusieurs
     */
     public function works() {
       return $this->belongsToMany('App\Models\Work', 'works_has_tags');
@@ -18,6 +19,7 @@ class Tag extends Model
 
     /**
     * GETTER des articles du tag.
+    * n:n - belongsToMany => Appartenir à plusieurs
     */
     public function articles() {
       return $this->belongsToMany('App\Models\Article', 'articles_has_tags');

@@ -101,7 +101,7 @@ export default {
   computed: {
     tags () {
       let tags = this.$store.getters.getTags;
-      console.log("CoucouTags")
+      // console.log("CoucouTags")
       return tags;
     }
 

@@ -2,91 +2,57 @@
 
 let actions = {
 
- /**
-  * WORKS
-  * @param {[type]} commit [description]
-  */
+  // WORKS
   setWorks ({commit}) {
-    console.log("action setWorks");
     axios.get('api/works')
          .then(reponsePHP => (commit ('SET_WORKS', reponsePHP.data)));
   },
 
 
- /**
-  * CATEGORIES
-  * @param {[type]} commit [description]
-  */
+  // WORK
+  setWork ({commit}, id) {
+    axios.get('api/works/' + id )
+         .then(reponsePHP => (commit ('SET_WORK', reponsePHP.data)));
+  },
+
+
+  // CATEGORIES
   setCategories ({commit}) {
-    console.log("action setCategories");
     axios.get('api/categories')
          .then(reponsePHP => (commit ('SET_CATEGORIES', reponsePHP.data)));
   },
 
 
-  /**
-   * WORK
-   * @param {[type]} commit [description]
-   */
-   setWork ({commit}, id) {
-     console.log("action setWork : id=" + id);
-     axios.get('api/works/' + id )
-          .then(reponsePHP => (commit ('SET_WORK', reponsePHP.data)));
-   },
+  // TAGS
+  setTags ({commit}) {
+    axios.get('api/tags')
+         .then(reponsePHP => (commit ('SET_TAGS', reponsePHP.data)));
+  },
 
 
-  /**
-   * COMMENTS PAR ID DU WORK
-   */
-   setWorkcomments ({commit}, id) {
-     console.log("action setWorkcomments : id=" + id);
-     axios.get('api/workcomments/work/'+ id )
-          .then(reponsePHP => (commit('SET_WORKCOMMENTS', reponsePHP.data)));
-   },
+  // COMMENTS PAR ID DU WORK
+  setWorkcomments ({commit}, id) {
+    axios.get('api/workcomments/work/'+ id )
+         .then(reponsePHP => (commit('SET_WORKCOMMENTS', reponsePHP.data)));
+  },
 
 
-  /**
-   * CREATION DU COMMENTS
-   */
-   createWorkcomment({commit}, comment) {
+  // CREATION DU COMMENTS
+  createWorkcomment({commit}, comment) {
+    // Envois le commentaire dans la liste des commentaires
+    axios.post('api/workcomments', comment)
+         .then(reponsePHP => {
+      if(reponsePHP.status == 200){
+        // Recuperation de tous les commentaires du work
+        this.dispatch('setWorkcomments', comment.work_id);
+      }
+    })
+    .catch(err => {console.log(err)})
+  },
 
-     console.log("action createWorkcomment :");
-     console.log(comment);
-     // Envois le commentaire dans la liste des commentaires
-     axios.post('api/workcomments', comment)
-          .then(reponsePHP => {
-       console.log(reponsePHP);
-       if(reponsePHP.status == 200){
-         console.log("sucess");
-                // Recuperation de tous les commentaires du work
-                this.dispatch('setWorkcomments', comment.work_id);
-              }
-          })
-          .catch(err => {console.log(err)})
-   },
-
-
-   /**
-    * TAGS
-    * @param {[type]} commit [description]
-    */
-    setTags ({commit}) {
-      console.log("action setTags");
-      axios.get('api/tags')
-           .then(reponsePHP => (commit ('SET_TAGS', reponsePHP.data)));
-    },
-
-    // /**
-    //  * TAGS PAR ID DU WORK
-    //  */
-    //  setTagsByWorkId ({commit}, id) {
-    //    console.log("action TagsByWorkId : id=" + id);
-    //    axios.get('api/work/'+ id + 'tags')
-    //         .then(reponsePHP => (commit('SET_TAGS', reponsePHP.data)));
-    //  },
 
 };
 
 export default actions;
 
-// https://laravel.com/docs/8.x/controllers#basic-controllersponsePHP.data)));
+// DOCS : https://laravel.com/docs/8.x/controllers#basic-controllersponsePHP.data)));

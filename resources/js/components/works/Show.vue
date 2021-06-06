@@ -1,6 +1,7 @@
 <template>
 
   <div class="">
+    <!-- PAGE HEADER PAGE -->
     <header-page></header-page>
 
     <section>
@@ -8,58 +9,58 @@
         <div class="container">
           <div class="row project-item">
 
-            <div class="col-sm-3">
-              <h3>{{ work.title }}</h3>
-              <!-- <p><strong>DATE:</strong> 21/01/2015</p>
-              <p><strong>CLIENT:</strong> Jeeves Design</p> -->
+                <div class="col-sm-3">
+                  <h3>{{ work.title }}</h3>
+                  <!-- <p><strong>DATE:</strong> 21/01/2015</p>
+                  <p><strong>CLIENT:</strong> Jeeves Design</p> -->
 
-              <hr>
+                  <hr>
 
-              <!-- DESCRIPTION DU WORK -->
-              <p><strong>DESCRIPTION:</strong>
-                <div>{{ work.description }}
+                  <!-- DESCRIPTION DU WORK -->
+                  <p><strong>DESCRIPTION:</strong>
+                    <div>{{ work.description }}
+                    </div>
+                  </p>
+
+                  <hr>
+
+                  <!-- TAGS DU WORK -->
+                  <p><strong>TAGS:</strong>
+                    <div v-for="tag in this.work.tags" :key="tag.id">
+                      <router-link :to="{name: 'tags.show', params: { id: tag.id }}">
+                        <!-- <a>- {{ tag.name }}</a> -->
+                        <a href="#" class="btn-perso">{{ tag.name }}</a>
+                      </router-link>
+                    </div>
+                  </p>
                 </div>
-              </p>
 
-              <hr>
+                <div class="col-sm-9 mb60 wow">
+                  <div class="row">
+                    <div class="col-xs-12 single-post-content">
 
-              <!-- TAGS DU WORK -->
-              <p><strong>TAGS:</strong>
-                <div v-for="tag in this.work.tags" :key="tag.id">
-                  <router-link :to="{name: 'tags.show', params: { id: tag.id }}">
-                    <!-- <a>- {{ tag.name }}</a> -->
-                    <a href="#" class="btn-perso">{{ tag.name }}</a>
-                  </router-link>
+                      <!-- IMAGE DU WORK -->
+                      <div class="gap">
+                        <img :src="'assets/img/portfolio/' + work.image" class="img-responsive " alt="title">
+                      </div>
+                      <!-- <div class="hover-item gap">
+                      <img :src="'assets/img/portfolio/portfolio4.jpg'" class="img-responsive " alt="title">
+                    </div>
+                    <div class="hover-item gap">
+                    <img :src="'assets/img/portfolio/portfolio9.jpg'" class="img-responsive " alt="title">
+                  </div> -->
                 </div>
-              </p>
-            </div>
-
-            <div class="col-sm-9 mb60 wow">
-              <div class="row">
-                <div class="col-xs-12 single-post-content">
-
-                  <!-- IMAGE DU WORK -->
-                  <div class="gap">
-                    <img :src="'assets/img/portfolio/' + work.image" class="img-responsive " alt="title">
-                  </div>
-                  <!-- <div class="hover-item gap">
-                  <img :src="'assets/img/portfolio/portfolio4.jpg'" class="img-responsive " alt="title">
-                </div>
-                <div class="hover-item gap">
-                <img :src="'assets/img/portfolio/portfolio9.jpg'" class="img-responsive " alt="title">
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- COMMENTAIRES DU WORK -->
+        <comments-work></comments-work>
+
       </div>
-    </div>
-
-    <comments-work></comments-work>
-
+    </section>
   </div>
-</section>
-</div>
 </template>
 
 
@@ -68,9 +69,6 @@ export default {
 
   data () {
     return {
-      //work : null,
-      loading: false,
-      error: null
     }
   },
 
@@ -80,15 +78,9 @@ export default {
     },
   },
 
-  beforeCreate() {
-  },
-
   created(){
-    console.log("works/Show - created")
+    // recuperer les données data
     this.fetchData_work()
-    //let id = this.$route.params.id
-    //this.$store.dispatch('setCurrentWork', id);
-    // this.fetchData_work() // recuperer les données data
   },
 
   watch: {
@@ -98,10 +90,14 @@ export default {
 
   methods: {
     fetchData_work: function(){
-      console.log("fetchData_work")
       let id = this.$route.params.id;
       this.$store.dispatch('setWork', id);
     }
   }
 }
 </script>
+
+<!-- DOC WATCH:
+https://router.vuejs.org/fr/guide/advanced/data-fetching.html
+https://vuejs.org/v2/guide/computed.html#Computed-vs-Watched-Property
+-->

@@ -8,11 +8,11 @@ use App\Models\Categorie;
 class CategoriesCtrl extends Controller {
 
 /**
- * AFFICHAGES DES CATEGORIES
- * @return [type] [description]
+ * All CATEGORIES
+ * @return [json]
  */
   public function index () {
-    return response()->json(Categorie::all()); // Retourne toutes les Categories (Résultat) sous forme d'une réponse Json.
+    return response()->json(Categorie::all());
   }
 
 }

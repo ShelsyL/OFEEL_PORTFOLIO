@@ -13,6 +13,7 @@ class Workcomment extends Model {
 
     /**
     * GETTER des works des comments
+    * 1:n(Inverse) - belongsTo => Appartient à
     */
     public function work(){
       return $this->belongsTo('App\Models\Work');

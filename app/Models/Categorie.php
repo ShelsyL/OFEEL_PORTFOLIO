@@ -12,6 +12,7 @@ class Categorie extends Model
 
     /**
     * GETTER des works de la categorie.
+    * n:n - belongsToMany => Appartenir à plusieurs
     */
     public function works() {
       return $this->belongsToMany('App\Models\Work', 'works_has_categories');
@@ -20,6 +21,7 @@ class Categorie extends Model
 
     /**
     * GETTER des articles de la catégorie.
+    * 1:n - hasMany => A beaucoup
     */
     public function articles() {
       return $this->hasMany('App\Models\Article');
