@@ -41,7 +41,7 @@
 
                       <!-- IMAGE DU WORK -->
                       <div class="gap">
-                        <img :src="'assets/img/portfolio/' + work.image" class="img-responsive " alt="title">
+                        <img :src="'storage/' + work.image" class="img-responsive " alt="title">
                       </div>
                       <!-- <div class="hover-item gap">
                       <img :src="'assets/img/portfolio/portfolio4.jpg'" class="img-responsive " alt="title">

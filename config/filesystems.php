@@ -35,12 +35,14 @@ return [
             'root' => storage_path('app'),
         ],
 
+
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app/public'), // La ou il enregistre l'image
+            'url' => env('APP_URL').'/storage', // Lien ou il va chercher l'image
             'visibility' => 'public',
         ],
+
 
         's3' => [
             'driver' => 's3',
@@ -51,6 +53,7 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
+
 
     ],
 

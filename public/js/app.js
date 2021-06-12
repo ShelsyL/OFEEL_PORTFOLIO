@@ -2282,6 +2282,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -39431,7 +39433,7 @@ var render = function() {
                             _c("img", {
                               staticClass: "img-responsive smoothie",
                               attrs: {
-                                src: "assets/img/portfolio/" + work.image,
+                                src: "storage/" + work.image,
                                 alt: "work.title"
                               }
                             }),
@@ -39457,7 +39459,7 @@ var render = function() {
                                           "btn btn-primary lb-link smoothie",
                                         attrs: {
                                           href:
-                                            "assets/img/portfolio/" +
+                                            "storage/assets/img/portfolio/" +
                                             work.image,
                                           title: "View Gallery"
                                         }
@@ -39640,7 +39642,7 @@ var render = function() {
                           _c("img", {
                             staticClass: "img-responsive ",
                             attrs: {
-                              src: "assets/img/portfolio/" + _vm.work.image,
+                              src: "storage/" + _vm.work.image,
                               alt: "title"
                             }
                           })
